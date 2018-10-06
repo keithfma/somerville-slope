@@ -117,76 +117,17 @@ def lidar_preprocess():
         np.save(output_file, pts)
 
 
-# def lidar_kdtree(load=True):
-#     """Create / load KDTree containing all (filtered) LiDAR data"""
-#     # TODO: add logic for loading existing KDTree
-#     pass
-# 
+def lidar_kdtree(load=True):
+    """Create / load KDTree containing all (filtered) LiDAR data"""
+    # TODO: add logic for loading existing KDTree
+    pass
+ 
 # # read and concatenate all pre-processed lidar tiles
 # pt_arrays = []
 # for npy_file in glob(os.path.join(OUTPUT_LIDAR_DIR, '*.npy')):
 #     pt_arrays.append(np.load(npy_file))
 # pts = np.row_stack(pt_arrays)
 # del pt_arrays
-
-
-def create_output_array():
-    """
-    Generate empty array and coordinates for Somerville bounding box
-
-    Returns: empty_grid, x_vec, y_vec, raster_origin, pixel_width, pixel_height
-        empty_grid:
-        x_vec, y_vec:
-        raster_origin:
-        pixel_width, pixel_height:
-    """
-
-    # load somerville geometry and get coord data
-    somerville = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)
-    somerville_poly = somerville['geometry'][0]
-    x_min, y_min, x_max, y_max = somerville_poly.bounds
-
-    # generate coord info required to write geotiff
-    raster_origin = (math.floor(x_min), math.floor(y_min))
-    pixel_width = OUTPUT_RES_X
-    pixel_height = OUTPUT_RES_Y
-
-    # generate coordinate vectors
-    x_vec = np.arange(math.floor(x_min), math.ceil(x_max) + 1, 1.0)
-    y_vec = np.arange(math.floor(y_min), math.ceil(y_max) + 1, 1.0)
-
-    # generate empty array to be populated
-    empty_grid = np.zeros((y_vec.shape[0], x_vec.shape[0]))
-    empty_grid[:] = np.nan
-    
-    # done!
-    return empty_grid, x_vec, y_vec, raster_origin, pixel_width, pixel_height
-
-
-def array2raster(newRasterfn, rasterOrigin, pixelWidth, pixelHeight, array):
-    """
-    Create GeoTiff from numpy array 
-    
-    Modified from https://pcjericks.github.io/py-gdalogr-cookbook/raster_layers.html#create-raster-from-array
-
-    Arguments: TODO
-    
-    Returns: TODO
-    """
-    cols = array.shape[1]
-    rows = array.shape[0]
-    originX = rasterOrigin[0]
-    originY = rasterOrigin[1]
-
-    driver = gdal.GetDriverByName('GTiff')
-    outRaster = driver.Create(newRasterfn, cols, rows, 1, gdal.GDT_Float32) # hardcoded to single precision
-    outRaster.SetGeoTransform((originX, pixelWidth, 0, originY, 0, pixelHeight))
-    outband = outRaster.GetRasterBand(1)
-    outband.WriteArray(array)
-    outRasterSRS = osr.SpatialReference()
-    outRasterSRS.ImportFromEPSG(OUTPUT_CRS) # hardcoded to standard coord sys
-    outRaster.SetProjection(outRasterSRS.ExportToWkt())
-    outband.FlushCache()
 
 
 def create_somerville_shp():
@@ -245,9 +186,8 @@ def read_somerville_mask_geotiff():
     return mask, x_vec, y_vec, meta
 
 
-# build 2D KDTree from point x, y
-
-# TODO: how to keep track of z?
+def create_somerville_elevation_geotiff():
+    pass
 
 # # find NN for all grid points
 # tree = cKDTree(xy) 
