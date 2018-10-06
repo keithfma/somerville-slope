@@ -11,21 +11,21 @@ import json
 import pdal
 import numpy as np
 import math
-import shapely
+import subprocess
 
 
 # constants
 MA_TOWNS_SHP = 'data/massgis_towns/data/TOWNS_POLY.shp'
-SOMERVILLE_SHP = 'data/massgis_towns/data/SOMERVILLE.shp'
 INDEX_SHP = 'data/noaa_lidar_index/data/2013_2014_usgs_post_sandy_ma_nh_ri_index.shp'
-INDEX_SOMERVILLE_SHP = 'maps/noaa_lidar_index_somerville.shp'
-LIDAR_BASE_DIR = 'data/noaa_lidar'
-LIDAR_DIST_DIR = f'{LIDAR_BASE_DIR}/dist'
-LIDAR_DATA_DIR = f'{LIDAR_BASE_DIR}/data'
+LIDAR_DIR = 'data/noaa_lidar/dist'
 LIDAR_CRS = 'EPSG:4152' # NAD83(HARN), see: https://coast.noaa.gov/htdata/lidar1_z/geoid12b/data/4800/
-STD_CRS = 'EPSG:32619' # UTM 19N coord ref sys, good for eastern MA
+
+OUTPUT_CRS = 'EPSG:32619' # UTM 19N coord ref sys, good for eastern MA
 OUTPUT_RES_X = 1 # meters
 OUTPUT_RES_Y = 1 # meters
+OUTPUT_LIDAR_DIR = 'data/output/lidar'
+OUTPUT_SOMERVILLE_SHP = 'data/output/somerville_boundary.shp'
+OUTPUT_INDEX_SOMERVILLE_SHP = 'data/output/somerville_lidar_index.shp'
 OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
 
 
@@ -33,31 +33,31 @@ def lidar_download():
     """Find and download LiDAR tiles for Somerville MA"""
 
     # load MA towns and project to standard
-    ma_towns = geopandas.read_file(MA_TOWNS_SHP).to_crs({"init": STD_CRS})
+    ma_towns = geopandas.read_file(MA_TOWNS_SHP).to_crs({"init": OUTPUT_CRS})
     somerville = ma_towns.set_index('TOWN').loc['SOMERVILLE']
 
     # load NOAA post-sandy LiDAR tile footprints, clip to somerville
-    lidar_tiles = geopandas.read_file(INDEX_SHP).to_crs({'init': STD_CRS})
+    lidar_tiles = geopandas.read_file(INDEX_SHP).to_crs({'init': OUTPUT_CRS})
     in_somerville = lidar_tiles.geometry.intersects(somerville.geometry)
     lidar_tiles_somerville = lidar_tiles[in_somerville]
 
     # write out Somerville LiDAR tiles as shapefile
-    lidar_tiles_somerville.to_file(INDEX_SOMERVILLE_SHP)
+    lidar_tiles_somerville.to_file(OUTPUT_INDEX_SOMERVILLE_SHP)
 
     # download Somerville tiles
     urls = lidar_tiles_somerville['URL'].values.tolist()
     for ii, url in enumerate(urls):
         print(f'\nDownloading tile {ii+1} / {len(urls)}')
-        wget.download(url=url.strip(), out=LIDAR_DIST_DIR)
+        wget.download(url=url.strip(), out=LIDAR_DIR)
 
 
 def lidar_preprocess():
     """Read and preprocess (new) LiDAR tiles"""
-    for input_file in glob(os.path.join(LIDAR_DIST_DIR, '*.laz')):
+    for input_file in glob(os.path.join(LIDAR_DIR, '*.laz')):
         
         # compute output name
         output_file = os.path.join(
-            LIDAR_DATA_DIR,
+            OUTPUT_LIDAR_DIR,
             os.path.splitext(os.path.basename(input_file))[0] + '.npy'
             )
        
@@ -77,7 +77,7 @@ def lidar_preprocess():
                     }, {
                         "type": "filters.reprojection",
                         "in_srs": LIDAR_CRS,
-                        "out_srs": STD_CRS,
+                        "out_srs": OUTPUT_CRS,
                     },
                     {
                         "type": "filters.outlier",
@@ -123,7 +123,7 @@ def lidar_preprocess():
 # 
 # # read and concatenate all pre-processed lidar tiles
 # pt_arrays = []
-# for npy_file in glob(os.path.join(LIDAR_DATA_DIR, '*.npy')):
+# for npy_file in glob(os.path.join(OUTPUT_LIDAR_DIR, '*.npy')):
 #     pt_arrays.append(np.load(npy_file))
 # pts = np.row_stack(pt_arrays)
 # del pt_arrays
@@ -141,7 +141,7 @@ def create_output_array():
     """
 
     # load somerville geometry and get coord data
-    somerville = geopandas.read_file(SOMERVILLE_SHP)
+    somerville = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)
     somerville_poly = somerville['geometry'][0]
     x_min, y_min, x_max, y_max = somerville_poly.bounds
 
@@ -183,22 +183,22 @@ def array2raster(newRasterfn, rasterOrigin, pixelWidth, pixelHeight, array):
     outband = outRaster.GetRasterBand(1)
     outband.WriteArray(array)
     outRasterSRS = osr.SpatialReference()
-    outRasterSRS.ImportFromEPSG(STD_CRS) # hardcoded to standard coord sys
+    outRasterSRS.ImportFromEPSG(OUTPUT_CRS) # hardcoded to standard coord sys
     outRaster.SetProjection(outRasterSRS.ExportToWkt())
     outband.FlushCache()
 
 
 def create_somerville_shp():
     """Generate shapefile with Somerville geometry"""
-    ma_towns = geopandas.read_file(MA_TOWNS_SHP).to_crs({"init": STD_CRS})
-    ma_towns[ma_towns['TOWN'] == 'SOMERVILLE'].to_file(SOMERVILLE_SHP)
+    ma_towns = geopandas.read_file(MA_TOWNS_SHP).to_crs({"init": OUTPUT_CRS})
+    ma_towns[ma_towns['TOWN'] == 'SOMERVILLE'].to_file(OUTPUT_SOMERVILLE_SHP)
 
 
 def create_somerville_geotiff():
     """DEBUG ONLY: create a mask raster for Somerville footprint"""
     pass
 
-# somer_geom = geopandas.read_file(SOMERVILLE_SHP)['geometry'][0]
+# somer_geom = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)['geometry'][0]
 # somer_mask, x_vec, y_vec, raster_origin, pixel_width, pixel_height = create_output_array()
 # for ii in range(len(y_vec)):
 #     print(f'Column {ii}')
@@ -207,19 +207,20 @@ def create_somerville_geotiff():
 #         somer_mask[ii, jj] = somer_geom.contains(this_pt) 
 
 # load somerville geometry and get coord data
-somer = geopandas.read_file(SOMERVILLE_SHP)
+somer = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)
 somer_poly = somer['geometry'][0]
 
 cmd = ['gdal_rasterize', 
-    '-burn',  str(1),
+    '-burn',  1,
     '-of', 'GTiff',
-    '-a_nodata', str(0),
-    '-te', *[str(val) for val in somer_poly.bounds],
-    '-tr', str(OUTPUT_RES_X), str(OUTPUT_RES_Y),
+    '-a_nodata', 0,
+    '-te', *somer_poly.bounds,
+    '-tr', OUTPUT_RES_X, OUTPUT_RES_Y,
     '-ot', 'Byte',
-    SOMERVILLE_SHP,
+    OUTPUT_SOMERVILLE_SHP,
     OUTPUT_SOMERVILLE_MASK_GTIF,
     ]
+subprocess.run([str(arg) for arg in cmd], check=True)
 
 
 def array_to_geotiff():
