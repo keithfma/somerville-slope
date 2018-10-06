@@ -36,7 +36,7 @@ def lidar_download():
     # download Somerville tiles
     urls = lidar_tiles_somerville['URL'].values.tolist()
     for ii, url in enumerate(urls):
-        print(f'Downloading tile {ii+1} / {len(urls)}')
+        print(f'\nDownloading tile {ii+1} / {len(urls)}')
         wget.download(url=url.strip(), out=LIDAR_SOMERVILLE_DIST_DIR)
 
 
