@@ -6,7 +6,7 @@ This (importable) module contains all subroutines used
 import os
 import geopandas
 import wget
-import glob
+from glob import glob
 import json
 import subprocess
 import pdal
@@ -48,9 +48,9 @@ def lidar_download():
 
 def lidar_preprocess():
     """Read and preprocess LiDAR tiles"""
-    for input_file in glob.glob(os.path.join(LIDAR_DIST_DIR, '*.laz')):
+    for input_file in glob(os.path.join(LIDAR_DIST_DIR, '*.laz')):
         # read and preprocss -> numpy array
-        print(f'{input_file}: Read and preprocess data')
+        print(f'\n{input_file}: Read and preprocess data')
         pipeline_json = json.dumps(
             {
                 "pipeline": [
@@ -105,10 +105,22 @@ def lidar_preprocess():
         np.save(output_file, pts)
 
 
-def lidar_kdtree():
+def lidar_kdtree(load=True):
     """Create / load KDTree containing all (filtered) LiDAR data"""
-    # TODO: re-use code from parasol gridding routine
+    # TODO: add logic for loading existing KDTree
     pass
+
+# read and concatenate all pre-processed lidar tiles
+pt_arrays = []
+for npy_file in glob(os.path.join(LIDAR_DATA_DIR, '*.npy')):
+    pt_arrays.append(np.load(npy_file))
+pts = np.row_stack(pt_arrays)
+del pt_arrays
+
+
+# build 2D KDTree from point x, y
+
+# TODO: how to keep track of z?
 
 # # find NN for all grid points
 # tree = cKDTree(xy) 
