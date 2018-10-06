@@ -12,6 +12,7 @@ import pdal
 import numpy as np
 import math
 import subprocess
+import rasterio
 
 
 # constants
@@ -215,9 +216,33 @@ def create_somerville_mask_geotiff():
 
 
 def read_somerville_mask_geotiff():
-    """Return empty array, coordinate vectors, and rasterio metadata"""
-    pass
+    """
+    Read Somerville mask raster from file
+    
+    Returns: mask, x_vec, y_vec, meta
+        mask: 2D numpy array, Somerville footprint 
+        x_vec, y_vec: 1D numpy arrays, coordinates for mask array
+        meta: dict, metadata from the mask raster, useful for writing related rasters
+    """
+    with rasterio.open(OUTPUT_SOMERVILLE_MASK_GTIF) as src:
+        # read mask data
+        mask = src.read(indexes=1)
 
+        # generate coordinate vectors (and check them against original)
+        bnds = src.bounds # outer bounds, points are 1/2 pixel in from this edge
+        y_vec = np.arange(bnds.bottom + 0.5*OUTPUT_RES_Y,
+                          bnds.top    - 0.5*OUTPUT_RES_Y + OUTPUT_RES_Y,
+                          OUTPUT_RES_Y)
+        y_vec = y_vec[::-1] # reverse direction to match image coords
+        x_vec = np.arange(bnds.left  + 0.5*OUTPUT_RES_X,
+                          bnds.right - 0.5*OUTPUT_RES_X + OUTPUT_RES_X,
+                          OUTPUT_RES_X)
+        assert src.xy(row=150, col=150) == (x_vec[150], y_vec[150])
+
+        # fetch raster metadata (useful for writing related rasters)
+        meta = src.meta.copy()
+
+    return mask, x_vec, y_vec, meta
 
 
 # build 2D KDTree from point x, y
