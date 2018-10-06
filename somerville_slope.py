@@ -194,36 +194,28 @@ def create_somerville_shp():
     ma_towns[ma_towns['TOWN'] == 'SOMERVILLE'].to_file(OUTPUT_SOMERVILLE_SHP)
 
 
-def create_somerville_geotiff():
-    """DEBUG ONLY: create a mask raster for Somerville footprint"""
-    pass
+def create_somerville_mask_geotiff():
+    """Create a mask raster for Somerville footprint"""
+    # load somerville geometry and get coord data
+    somer = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)
+    somer_poly = somer['geometry'][0]
 
-# somer_geom = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)['geometry'][0]
-# somer_mask, x_vec, y_vec, raster_origin, pixel_width, pixel_height = create_output_array()
-# for ii in range(len(y_vec)):
-#     print(f'Column {ii}')
-#     for jj in range(len(x_vec)):
-#         this_pt = shapely.geometry.Point(x_vec[ii], y_vec[jj])
-#         somer_mask[ii, jj] = somer_geom.contains(this_pt) 
-
-# load somerville geometry and get coord data
-somer = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)
-somer_poly = somer['geometry'][0]
-
-cmd = ['gdal_rasterize', 
-    '-burn',  1,
-    '-of', 'GTiff',
-    '-a_nodata', 0,
-    '-te', *somer_poly.bounds,
-    '-tr', OUTPUT_RES_X, OUTPUT_RES_Y,
-    '-ot', 'Byte',
-    OUTPUT_SOMERVILLE_SHP,
-    OUTPUT_SOMERVILLE_MASK_GTIF,
-    ]
-subprocess.run([str(arg) for arg in cmd], check=True)
+    # rasterize using command-line tool
+    cmd = ['gdal_rasterize', 
+        '-burn',  1,
+        '-of', 'GTiff',
+        '-a_nodata', 0,
+        '-te', *somer_poly.bounds,
+        '-tr', OUTPUT_RES_X, OUTPUT_RES_Y,
+        '-ot', 'Byte',
+        OUTPUT_SOMERVILLE_SHP,
+        OUTPUT_SOMERVILLE_MASK_GTIF,
+        ]
+    subprocess.run([str(arg) for arg in cmd], check=True)
 
 
-def array_to_geotiff():
+def read_somerville_mask_geotiff():
+    """Return empty array, coordinate vectors, and rasterio metadata"""
     pass
 
 
