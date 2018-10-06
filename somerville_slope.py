@@ -8,13 +8,15 @@ import geopandas
 import wget
 from glob import glob
 import json
-import subprocess
 import pdal
 import numpy as np
+import math
+import shapely
 
 
 # constants
 MA_TOWNS_SHP = 'data/massgis_towns/data/TOWNS_POLY.shp'
+SOMERVILLE_SHP = 'data/massgis_towns/data/SOMERVILLE.shp'
 INDEX_SHP = 'data/noaa_lidar_index/data/2013_2014_usgs_post_sandy_ma_nh_ri_index.shp'
 INDEX_SOMERVILLE_SHP = 'maps/noaa_lidar_index_somerville.shp'
 LIDAR_BASE_DIR = 'data/noaa_lidar'
@@ -22,13 +24,16 @@ LIDAR_DIST_DIR = f'{LIDAR_BASE_DIR}/dist'
 LIDAR_DATA_DIR = f'{LIDAR_BASE_DIR}/data'
 LIDAR_CRS = 'EPSG:4152' # NAD83(HARN), see: https://coast.noaa.gov/htdata/lidar1_z/geoid12b/data/4800/
 STD_CRS = 'EPSG:32619' # UTM 19N coord ref sys, good for eastern MA
+OUTPUT_RES_X = 1 # meters
+OUTPUT_RES_Y = 1 # meters
+OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
 
 
 def lidar_download():
     """Find and download LiDAR tiles for Somerville MA"""
 
     # load MA towns and project to standard
-    ma_towns = geopandas.read_file(MA_TOWNS_SHP).to_crs(STD_CRS)
+    ma_towns = geopandas.read_file(MA_TOWNS_SHP).to_crs({"init": STD_CRS})
     somerville = ma_towns.set_index('TOWN').loc['SOMERVILLE']
 
     # load NOAA post-sandy LiDAR tile footprints, clip to somerville
@@ -47,8 +52,20 @@ def lidar_download():
 
 
 def lidar_preprocess():
-    """Read and preprocess LiDAR tiles"""
+    """Read and preprocess (new) LiDAR tiles"""
     for input_file in glob(os.path.join(LIDAR_DIST_DIR, '*.laz')):
+        
+        # compute output name
+        output_file = os.path.join(
+            LIDAR_DATA_DIR,
+            os.path.splitext(os.path.basename(input_file))[0] + '.npy'
+            )
+       
+        # check for existing output and skip if found
+        if os.path.isfile(output_file):
+            print(f'{input_file}: output exists, skipping')
+            continue
+        
         # read and preprocss -> numpy array
         print(f'\n{input_file}: Read and preprocess data')
         pipeline_json = json.dumps(
@@ -94,28 +111,120 @@ def lidar_preprocess():
         print(f'{input_file}: Get x,y,z array')
         pts = np.column_stack((pts['X'][mask], pts['Y'][mask], pts['Z'][mask]))
         
-        # compute output name
-        output_file = os.path.join(
-            LIDAR_DATA_DIR,
-            os.path.splitext(os.path.basename(input_file))[0] + '.npy'
-            )
-        
         # save data as numpy file
         print(f'{input_file}: Save as {output_file}')
         np.save(output_file, pts)
 
 
-def lidar_kdtree(load=True):
-    """Create / load KDTree containing all (filtered) LiDAR data"""
-    # TODO: add logic for loading existing KDTree
+# def lidar_kdtree(load=True):
+#     """Create / load KDTree containing all (filtered) LiDAR data"""
+#     # TODO: add logic for loading existing KDTree
+#     pass
+# 
+# # read and concatenate all pre-processed lidar tiles
+# pt_arrays = []
+# for npy_file in glob(os.path.join(LIDAR_DATA_DIR, '*.npy')):
+#     pt_arrays.append(np.load(npy_file))
+# pts = np.row_stack(pt_arrays)
+# del pt_arrays
+
+
+def create_output_array():
+    """
+    Generate empty array and coordinates for Somerville bounding box
+
+    Returns: empty_grid, x_vec, y_vec, raster_origin, pixel_width, pixel_height
+        empty_grid:
+        x_vec, y_vec:
+        raster_origin:
+        pixel_width, pixel_height:
+    """
+
+    # load somerville geometry and get coord data
+    somerville = geopandas.read_file(SOMERVILLE_SHP)
+    somerville_poly = somerville['geometry'][0]
+    x_min, y_min, x_max, y_max = somerville_poly.bounds
+
+    # generate coord info required to write geotiff
+    raster_origin = (math.floor(x_min), math.floor(y_min))
+    pixel_width = OUTPUT_RES_X
+    pixel_height = OUTPUT_RES_Y
+
+    # generate coordinate vectors
+    x_vec = np.arange(math.floor(x_min), math.ceil(x_max) + 1, 1.0)
+    y_vec = np.arange(math.floor(y_min), math.ceil(y_max) + 1, 1.0)
+
+    # generate empty array to be populated
+    empty_grid = np.zeros((y_vec.shape[0], x_vec.shape[0]))
+    empty_grid[:] = np.nan
+    
+    # done!
+    return empty_grid, x_vec, y_vec, raster_origin, pixel_width, pixel_height
+
+
+def array2raster(newRasterfn, rasterOrigin, pixelWidth, pixelHeight, array):
+    """
+    Create GeoTiff from numpy array 
+    
+    Modified from https://pcjericks.github.io/py-gdalogr-cookbook/raster_layers.html#create-raster-from-array
+
+    Arguments: TODO
+    
+    Returns: TODO
+    """
+    cols = array.shape[1]
+    rows = array.shape[0]
+    originX = rasterOrigin[0]
+    originY = rasterOrigin[1]
+
+    driver = gdal.GetDriverByName('GTiff')
+    outRaster = driver.Create(newRasterfn, cols, rows, 1, gdal.GDT_Float32) # hardcoded to single precision
+    outRaster.SetGeoTransform((originX, pixelWidth, 0, originY, 0, pixelHeight))
+    outband = outRaster.GetRasterBand(1)
+    outband.WriteArray(array)
+    outRasterSRS = osr.SpatialReference()
+    outRasterSRS.ImportFromEPSG(STD_CRS) # hardcoded to standard coord sys
+    outRaster.SetProjection(outRasterSRS.ExportToWkt())
+    outband.FlushCache()
+
+
+def create_somerville_shp():
+    """Generate shapefile with Somerville geometry"""
+    ma_towns = geopandas.read_file(MA_TOWNS_SHP).to_crs({"init": STD_CRS})
+    ma_towns[ma_towns['TOWN'] == 'SOMERVILLE'].to_file(SOMERVILLE_SHP)
+
+
+def create_somerville_geotiff():
+    """DEBUG ONLY: create a mask raster for Somerville footprint"""
     pass
 
-# read and concatenate all pre-processed lidar tiles
-pt_arrays = []
-for npy_file in glob(os.path.join(LIDAR_DATA_DIR, '*.npy')):
-    pt_arrays.append(np.load(npy_file))
-pts = np.row_stack(pt_arrays)
-del pt_arrays
+# somer_geom = geopandas.read_file(SOMERVILLE_SHP)['geometry'][0]
+# somer_mask, x_vec, y_vec, raster_origin, pixel_width, pixel_height = create_output_array()
+# for ii in range(len(y_vec)):
+#     print(f'Column {ii}')
+#     for jj in range(len(x_vec)):
+#         this_pt = shapely.geometry.Point(x_vec[ii], y_vec[jj])
+#         somer_mask[ii, jj] = somer_geom.contains(this_pt) 
+
+# load somerville geometry and get coord data
+somer = geopandas.read_file(SOMERVILLE_SHP)
+somer_poly = somer['geometry'][0]
+
+cmd = ['gdal_rasterize', 
+    '-burn',  str(1),
+    '-of', 'GTiff',
+    '-a_nodata', str(0),
+    '-te', *[str(val) for val in somer_poly.bounds],
+    '-tr', str(OUTPUT_RES_X), str(OUTPUT_RES_Y),
+    '-ot', 'Byte',
+    SOMERVILLE_SHP,
+    OUTPUT_SOMERVILLE_MASK_GTIF,
+    ]
+
+
+def array_to_geotiff():
+    pass
+
 
 
 # build 2D KDTree from point x, y
