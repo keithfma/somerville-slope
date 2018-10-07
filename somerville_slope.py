@@ -31,7 +31,7 @@ OUTPUT_SOMERVILLE_SHP = 'data/output/somerville_boundary.shp'
 OUTPUT_INDEX_SOMERVILLE_SHP = 'data/output/somerville_lidar_index.shp'
 OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
 OUTPUT_SOMERVILLE_KDTREE = 'data/output/somerville_kdtree.pkl'
-OUTPUT_SOMERVILLE_ELEV_GTIF= 'data/output/somerville_elev.gtif'
+OUTPUT_SOMERVILLE_ELEV_PREFIX = 'data/output/somerville_elev_'
 
 
 def lidar_download():
@@ -84,11 +84,19 @@ def lidar_preprocess():
                         "in_srs": LIDAR_CRS,
                         "out_srs": OUTPUT_CRS,
                     },
+                    # Note from LiDAR metadata: ... Default (Class 1), Ground (Class 2), Noise
+                    # (Class 7), Water (Class 9), Ignored Ground (Class 10), Overlap Default
+                    # (Class 17) and Overlap Ground (Class 18).
                     {
-                        "type": "filters.outlier",
-                        "method": "statistical",
-                        "mean_k": 12,
-                        "multiplier": 3,
+                      "type":"filters.range",
+                      "limits":"Classification[2:2], Classification[9:10], Classification[18:18]"
+                    },
+                    {
+                        "type": "writers.gdal",
+                        "resolution": 1,
+                        "radius": 2,
+                        "output_type": "max",
+                        "filename": output_file,
                     },
                 ]
             }
@@ -100,21 +108,9 @@ def lidar_preprocess():
         assert num_arrays == 1, f"Unexpected length for pipeline.arrays = {num_arrays}"
         pts = pipeline.arrays[0]
 
-        # find ground points
-        # # Note from LiDAR metadata: ... Default (Class 1), Ground (Class 2), Noise
-        # # (Class 7), Water (Class 9), Ignored Ground (Class 10), Overlap Default
-        # # (Class 17) and Overlap Ground (Class 18).
-        print(f'{input_file}Find ground points from')
-        last_or_only = pts['ReturnNumber'] == pts['NumberOfReturns']  
-        default_or_ground_or_water = np.logical_or(
-            pts['Classification'] == 1,
-            pts['Classification'] == 2,
-            pts['Classification'] == 9)
-        mask = np.logical_and(last_or_only, default_or_ground_or_water)
-
         # reformat as x,y,z array of ground points
         print(f'{input_file}: Get x,y,z array')
-        pts = np.column_stack((pts['X'][mask], pts['Y'][mask], pts['Z'][mask]))
+        pts = np.column_stack((pts['X'], pts['Y'], pts['Z']))
         
         # save data as numpy file
         print(f'{input_file}: Save as {output_file}')
@@ -216,7 +212,7 @@ def read_somerville_mask_geotiff():
     return mask, x_vec, y_vec, meta
 
 
-def create_somerville_elevation_geotiff():
+def create_somerville_elevation_geotiff(knn=16, agg='median'):
     """Compute gridded elev using NN-median filter as save geotiff"""
     # get points and KDTree
     tree, zpts = lidar_kdtree(load=True)
@@ -230,17 +226,24 @@ def create_somerville_elevation_geotiff():
     # find kNN for all grid points
     x_grd, y_grd = np.meshgrid(x_vec, y_vec, indexing='xy')
     xy_mask = np.column_stack((x_grd[mask], y_grd[mask]))
-    nn_dist, nn_idx = tree.query(xy_mask, k=16) # returns indexes into original data
+    nn_dist, nn_idx = tree.query(xy_mask, k=knn) # returns indexes into original data
 
-    # compute elevation as local medians
-    elev[mask] = np.median(zpts[nn_idx], axis=1)
+    if agg == 'median':
+        # compute elevation as local medians
+        elev[mask] = np.median(zpts[nn_idx], axis=1)
+        output_file = f'{OUTPUT_SOMERVILLE_ELEV_PREFIX}_median_{knn}.gtif'
+    elif agg == 'mean':
+        elev[mask] = np.mean(zpts[nn_idx], axis=1)
+        output_file = f'{OUTPUT_SOMERVILLE_ELEV_PREFIX}_mean_{knn}.gtif'
+    else:
+        raise ValueError(f'Invalid choice for input arg "agg" = {agg}')
 
     # write results to geotiff
     meta.update({
         'driver': 'GTiff',
         'dtype': 'float32',
         })
-    with rasterio.open(OUTPUT_SOMERVILLE_ELEV_GTIF, 'w', **meta) as elev_raster:
+    with rasterio.open(output_file, 'w', **meta) as elev_raster:
         elev_raster.write(elev, 1)
 
 
