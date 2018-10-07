@@ -31,6 +31,7 @@ OUTPUT_SOMERVILLE_SHP = 'data/output/somerville_boundary.shp'
 OUTPUT_INDEX_SOMERVILLE_SHP = 'data/output/somerville_lidar_index.shp'
 OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
 OUTPUT_SOMERVILLE_KDTREE = 'data/output/somerville_kdtree.pkl'
+OUTPUT_SOMERVILLE_ELEV_GTIF= 'data/output/somerville_elev.gtif'
 
 
 def lidar_download():
@@ -216,17 +217,30 @@ def read_somerville_mask_geotiff():
 
 
 def create_somerville_elevation_geotiff():
-    pass
+    """Compute gridded elev using NN-median filter as save geotiff"""
+    # get points and KDTree
+    tree, zpts = lidar_kdtree(load=True)
 
-# get points and KDTree
-tree, zpts = lidar_kdtree(load=False) # TODO: change to True
-# tree, zpts = lidar_kdtree(load=True)
+    # prepare output grid from somerville mask raster
+    mask, x_vec, y_vec, meta = read_somerville_mask_geotiff()
+    mask = mask.astype(np.bool)
+    elev = np.zeros(mask.shape, dtype=np.float32)
+    elev[:] = np.nan
 
-# # find NN for all grid points
-# tree = cKDTree(xy) 
-# xy_grd = np.hstack([x_grd.reshape((-1,1)), y_grd.reshape((-1,1))])
-# nn_dist, nn_idx = tree.query(xy_grd, k=16)
-#
-# # compute local medians
-# z_grds.append(np.median(zz[nn_idx], axis=1).reshape(x_grd.shape))
+    # find kNN for all grid points
+    x_grd, y_grd = np.meshgrid(x_vec, y_vec, indexing='xy')
+    xy_mask = np.column_stack((x_grd[mask], y_grd[mask]))
+    nn_dist, nn_idx = tree.query(xy_mask, k=16) # returns indexes into original data
+
+    # compute elevation as local medians
+    elev[mask] = np.median(zpts[nn_idx], axis=1)
+
+    # write results to geotiff
+    meta.update({
+        'driver': 'GTiff',
+        'dtype': 'float32',
+        })
+    with rasterio.open(OUTPUT_SOMERVILLE_ELEV_GTIF, 'w', **meta) as elev_raster:
+        elev_raster.write(elev, 1)
+
 
