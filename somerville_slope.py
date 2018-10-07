@@ -13,6 +13,8 @@ import numpy as np
 import math
 import subprocess
 import rasterio
+import pickle
+from scipy.spatial import cKDTree
 
 
 # constants
@@ -28,6 +30,8 @@ OUTPUT_LIDAR_DIR = 'data/output/lidar'
 OUTPUT_SOMERVILLE_SHP = 'data/output/somerville_boundary.shp'
 OUTPUT_INDEX_SOMERVILLE_SHP = 'data/output/somerville_lidar_index.shp'
 OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
+OUTPUT_SOMERVILLE_PTS = 'data/output/somerville_pts.pkl'
+OUTPUT_SOMERVILLE_KDTREE = 'data/output/somerville_kdtree.pkl'
 
 
 def lidar_download():
@@ -117,17 +121,59 @@ def lidar_preprocess():
         np.save(output_file, pts)
 
 
+def lidar_pts(load=True):
+    """
+    Create / load numpy array containing all (filtered) LiDAR pts 
+
+    Arguments:
+        load: bool, set True to attempt to load previous results from pickle files
+
+    Return:
+        pts: Nx3 numpy array, x,y,z coordinates for all points in study area
+    """
+    if load and os.path.exists(OUTPUT_SOMERVILLE_PTS):
+        # load data from pickle
+        with open(OUTPUT_SOMERVILLE_PTS, 'rb') as fp:
+            pts = pickle.load(fp)
+    
+    else:
+        # generate data from tile inputs
+        pt_arrays = []
+        for npy_file in glob(os.path.join(OUTPUT_LIDAR_DIR, '*.npy')):
+            print(f'Read: {npy_file}')
+            pt_arrays.append(np.load(npy_file))
+        pts = np.row_stack(pt_arrays)
+        # save points as pickle
+        with open(OUTPUT_SOMERVILLE_PTS, 'wb') as fp:
+            pickle.dump(pts, fp)
+
+    return pts, tree
+
+
 def lidar_kdtree(load=True):
-    """Create / load KDTree containing all (filtered) LiDAR data"""
-    # TODO: add logic for loading existing KDTree
-    pass
- 
-# # read and concatenate all pre-processed lidar tiles
-# pt_arrays = []
-# for npy_file in glob(os.path.join(OUTPUT_LIDAR_DIR, '*.npy')):
-#     pt_arrays.append(np.load(npy_file))
-# pts = np.row_stack(pt_arrays)
-# del pt_arrays
+    """
+    Create / load KDTree containing all (filtered) LiDAR data
+
+    Arguments:
+        load: bool, set True to attempt to load previous results from pickle files
+
+    Return: pts, tree
+        pts: Nx3 numpy array, x,y,z coordinates for all points in study area
+        tree: scipy.spatial.cKDTree object for x,y in pts
+    """
+    if load and os.path.exists(OUTPUT_SOMERVILLE_KDTREE):
+        # load data from pickle
+        with open(OUTPUT_SOMERVILLE_KDTREE, 'rb') as fp:
+            kdtree = pickle.load(fp)
+
+    else: 
+        # build KDTree for x,y points
+        tree = cKDTree(pts[:,:2])
+        # save tree as pickle
+        with open(OUTPUT_SOMERVILLE_KDTREE, 'wb') as fp:
+            pickle.dump(tree, fp)
+
+    return tree
 
 
 def create_somerville_shp():
