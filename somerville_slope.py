@@ -147,14 +147,15 @@ def lidar_pts(load=True):
         with open(OUTPUT_SOMERVILLE_PTS, 'wb') as fp:
             pickle.dump(pts, fp)
 
-    return pts, tree
+    return pts
 
 
-def lidar_kdtree(load=True):
+def lidar_kdtree(pts, load=True):
     """
     Create / load KDTree containing all (filtered) LiDAR data
 
     Arguments:
+        pts: Nx3 numpy array, x,y,z coordinates for all points in study area
         load: bool, set True to attempt to load previous results from pickle files
 
     Return: pts, tree
@@ -164,7 +165,7 @@ def lidar_kdtree(load=True):
     if load and os.path.exists(OUTPUT_SOMERVILLE_KDTREE):
         # load data from pickle
         with open(OUTPUT_SOMERVILLE_KDTREE, 'rb') as fp:
-            kdtree = pickle.load(fp)
+            tree = pickle.load(fp)
 
     else: 
         # build KDTree for x,y points
@@ -234,6 +235,10 @@ def read_somerville_mask_geotiff():
 
 def create_somerville_elevation_geotiff():
     pass
+
+# get points and KDTree
+pts = lidar_pts()
+tree = lidar_kdtree(pts)
 
 # # find NN for all grid points
 # tree = cKDTree(xy) 
