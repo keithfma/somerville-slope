@@ -16,10 +16,12 @@ import rasterio
 import pickle
 from scipy.spatial import cKDTree
 from warnings import warn
+import shutil
 
 
 # constants
 MA_TOWNS_SHP = 'data/massgis_towns/data/TOWNS_POLY.shp'
+SOMERVILLE_PARCELS_SHP = 'data/massgis_parcels/data/M274TaxPar.shp'
 INDEX_SHP = 'data/noaa_lidar_index/data/2013_2014_usgs_post_sandy_ma_nh_ri_index.shp'
 LIDAR_DIR = 'data/noaa_lidar/dist'
 LIDAR_CRS = 'EPSG:4152' # NAD83(HARN), see: https://coast.noaa.gov/htdata/lidar1_z/geoid12b/data/4800/
@@ -30,14 +32,17 @@ FIT_MIN_PTS = 10
 OUTPUT_CRS = 'EPSG:32619' # UTM 19N coord ref sys, good for eastern MA
 OUTPUT_RES_X = 1 # meters
 OUTPUT_RES_Y = 1 # meters
-OUTPUT_LIDAR_DIR = 'data/output/lidar'
-OUTPUT_SOMERVILLE_SHP = 'data/output/somerville_boundary.shp'
-OUTPUT_INDEX_SOMERVILLE_SHP = 'data/output/somerville_lidar_index.shp'
-OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
-OUTPUT_SOMERVILLE_KDTREE = 'data/output/somerville_kdtree.pkl'
-OUTPUT_SOMERVILLE_ELEV_PREFIX = 'data/output/somerville_elev'
-OUTPUT_SOMERVILLE_SLOPE_PCT_GTIF = 'data/output/somerville_slope_pct_lstsq_30ft.gtif'
-OUTPUT_SOMERVILLE_SLOPE_DIR_GTIF = 'data/output/somerville_slope_dir_lstsq_30ft.gtif'
+OUTPUT_DIR = 'data/output'
+OUTPUT_LIDAR_DIR = f'{OUTPUT_DIR}/lidar'
+OUTPUT_SOMERVILLE_SHP = f'{OUTPUT_DIR}/somerville_boundary.shp'
+OUTPUT_INDEX_SOMERVILLE_SHP = f'{OUTPUT_DIR}/somerville_lidar_index.shp'
+OUTPUT_SOMERVILLE_MASK_GTIF = f'{OUTPUT_DIR}/somerville_mask.gtif'
+OUTPUT_SOMERVILLE_KDTREE = f'{OUTPUT_DIR}/somerville_kdtree.pkl'
+OUTPUT_SOMERVILLE_ELEV_PREFIX = f'{OUTPUT_DIR}/somerville_elev'
+OUTPUT_SOMERVILLE_SLOPE_PCT_GTIF = f'{OUTPUT_DIR}/somerville_slope_pct_lstsq_30ft.gtif'
+OUTPUT_SOMERVILLE_SLOPE_DIR_GTIF = f'{OUTPUT_DIR}/somerville_slope_dir_lstsq_30ft.gtif'
+OUTPUT_SOMERVILLE_PARCELS_SHP = f'{OUTPUT_DIR}/someville_parcels.shp'
+OUTPUT_SOMERVILLE_PARCELS_GTIF = f'{OUTPUT_DIR}/somerville_parcels.gtif'
 
 
 def lidar_download():
@@ -188,16 +193,19 @@ def create_somerville_mask_geotiff():
     subprocess.run([str(arg) for arg in cmd], check=True)
 
 
-def read_somerville_mask_geotiff():
+def read_geotiff(gtif):
     """
-    Read Somerville mask raster from file
+    Read raster from file
+
+    Arguments:
+        gtif: string, path to input file to be read
     
     Returns: mask, x_vec, y_vec, meta
         mask: 2D numpy array, Somerville footprint 
         x_vec, y_vec: 1D numpy arrays, coordinates for mask array
         meta: dict, metadata from the mask raster, useful for writing related rasters
     """
-    with rasterio.open(OUTPUT_SOMERVILLE_MASK_GTIF) as src:
+    with rasterio.open(gtif) as src:
         # read mask data
         mask = src.read(indexes=1)
 
@@ -224,7 +232,7 @@ def create_somerville_elevation_geotiff(knn=16, agg='median'):
     tree, zpts = lidar_kdtree(load=True)
 
     # prepare output grid from somerville mask raster
-    mask, x_vec, y_vec, meta = read_somerville_mask_geotiff()
+    mask, x_vec, y_vec, meta = read_geotiff(OUTPUT_SOMERVILLE_MASK_GTIF)
     mask = mask.astype(np.bool)
     elev = np.zeros(mask.shape, dtype=np.float32)
     elev[:] = np.nan
@@ -264,7 +272,7 @@ def create_somerville_30ft_geotiffs(knn=16, agg='median'):
     tree, zpts = lidar_kdtree(load=True)
 
     # prepare output grids from somerville mask raster
-    mask, x_vec, y_vec, meta = read_somerville_mask_geotiff()
+    mask, x_vec, y_vec, meta = read_geotiff(OUTPUT_SOMERVILLE_MASK_GTIF)
     mask = mask.astype(np.bool)
     elev = np.zeros(mask.shape, dtype=np.float32)
     elev[:] = np.nan
@@ -320,3 +328,49 @@ def create_somerville_30ft_geotiffs(knn=16, agg='median'):
         slope_pct_raster.write(slope_pct, 1)
     with rasterio.open(OUTPUT_SOMERVILLE_SLOPE_DIR_GTIF, 'w', **meta) as slope_dir_raster:
         slope_dir_raster.write(slope_dir, 1)
+
+
+
+def create_somerville_parcel_shp():
+    """Write shapefile containing select Somerville parcels"""
+    # read original parcels shp
+    parcels = geopandas.read_file(SOMERVILLE_PARCELS_SHP).to_crs({"init": OUTPUT_CRS})
+
+    # drop select parcel types
+    is_row = parcels['POLY_TYPE'] == 'ROW'
+    is_rail_row = parcels['POLY_TYPE'] == 'RAIL_ROW'
+    is_water = parcels['POLY_TYPE'] == 'WATER'
+    rel_parcels = parcels.drop(parcels[is_row | is_rail_row | is_water].index)
+
+    # add numeric ID as a feature
+    rel_parcels.reset_index(drop=True)
+    rel_parcels['ID'] = rel_parcels.index
+
+    # write to shapefile
+    rel_parcels.to_file(OUTPUT_SOMERVILLE_PARCELS_SHP)
+
+
+def create_somerville_parcel_geotiff(): 
+    """Create a raster of Somerville parcel IDs -- match other rasters format"""
+    # load somerville geometry and get coord data
+    somer = geopandas.read_file(OUTPUT_SOMERVILLE_SHP)
+    somer_poly = somer['geometry'][0]
+
+    # rasterize using command-line tool
+    cmd = ['gdal_rasterize', 
+        '-a', 'ID',
+        '-of', 'GTiff',
+        '-a_nodata', -9999,
+        '-te', *somer_poly.bounds,
+        '-tr', OUTPUT_RES_X, OUTPUT_RES_Y,
+        '-ot', 'Int32',
+        OUTPUT_SOMERVILLE_PARCELS_SHP,
+        OUTPUT_SOMERVILLE_PARCELS_GTIF,
+        ]
+    subprocess.run([str(arg) for arg in cmd], check=True)
+
+
+def create_labeled_parcel_shp():
+    pass
+
+
