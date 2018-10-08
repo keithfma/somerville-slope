@@ -3,6 +3,11 @@ Somerville MA LiDAR Slope Analysis
 
 This (importable) module contains all subroutines used
 """
+
+# TODO: too many spurious results -- try a morphological filter on the gridded
+#   elev / slope results to handle ugly edges of house footprints -- try
+#   increasing the number of points required for a fit
+
 import os
 import geopandas
 import wget
@@ -27,7 +32,9 @@ LIDAR_DIR = 'data/noaa_lidar/dist'
 LIDAR_CRS = 'EPSG:4152' # NAD83(HARN), see: https://coast.noaa.gov/htdata/lidar1_z/geoid12b/data/4800/
 FT_TO_M = 0.3048
 NBR_RADIUS = 15*FT_TO_M 
-FIT_MIN_PTS = 10 
+FIT_MIN_PTS = 0.75*math.pi*NBR_RADIUS**2 # 30 ft radius around point at least 3/4 populated
+SLOPE_PCT_THRESHOLD = 25
+IMPACTED_THRESHOLD = 5 # m2 above threshold to label as impacted
 
 OUTPUT_CRS = 'EPSG:32619' # UTM 19N coord ref sys, good for eastern MA
 OUTPUT_RES_X = 1 # meters
@@ -43,6 +50,7 @@ OUTPUT_SOMERVILLE_SLOPE_PCT_GTIF = f'{OUTPUT_DIR}/somerville_slope_pct_lstsq_30f
 OUTPUT_SOMERVILLE_SLOPE_DIR_GTIF = f'{OUTPUT_DIR}/somerville_slope_dir_lstsq_30ft.gtif'
 OUTPUT_SOMERVILLE_PARCELS_SHP = f'{OUTPUT_DIR}/someville_parcels.shp'
 OUTPUT_SOMERVILLE_PARCELS_GTIF = f'{OUTPUT_DIR}/somerville_parcels.gtif'
+OUTPUT_SOMERVILLE_PARCELS_LABELED_SHP = f'{OUTPUT_DIR}/somerville_parcels_labeled.shp'
 
 
 def lidar_download():
@@ -371,6 +379,37 @@ def create_somerville_parcel_geotiff():
 
 
 def create_labeled_parcel_shp():
-    pass
+    """Write Somerville parcel shapefile with slope counts and labels"""
+    # load slope and parcel raster data
+    slope_pct_array, x_vec, y_vec, meta = read_geotiff(OUTPUT_SOMERVILLE_SLOPE_PCT_GTIF)
+    parcels_array, x_vec, y_vec, meta = read_geotiff(OUTPUT_SOMERVILLE_PARCELS_GTIF)
+
+    # load somerville parcels shapefile
+    parcels = geopandas.read_file(OUTPUT_SOMERVILLE_PARCELS_SHP)
+
+    # count above-threshold slope pixels in each parcel
+    parcels_count = {parcel_id: 0 for parcel_id in parcels['ID']}
+    parcels_count[-9999] = 0 # special case for no-data pixels
+    for ii in range(parcels_array.shape[0]):
+        for jj in range(parcels_array.shape[1]):
+            if slope_pct_array[ii, jj] >= SLOPE_PCT_THRESHOLD:
+                parcels_count[parcels_array[ii, jj]] += 1
+            else:
+                parcels_count[parcels_array[ii, jj]] += 0
+    del parcels_count[-9999] # special case for no-data pixels
+
+    # convert counter to a pandas DataFrame and add classification
+    counts_df = geopandas.pd.DataFrame.from_dict(parcels_count, orient='index').reset_index()
+    counts_df.rename({'index': 'ID', 0: 'M2_ABOVE_25_PCT_SLOPE'}, axis='columns', inplace=True)
+    counts_df['IMPACTED'] = counts_df['M2_ABOVE_25_PCT_SLOPE'] >= IMPACTED_THRESHOLD
+
+    # join dataframes
+    parcels.set_index('ID', drop=True, inplace=True)  
+    counts_df.set_index('ID', drop=True, inplace=True)  
+    parcels_combined = parcels.join(counts_df, how='left')
+
+    # write results to shapefile
+    parcels_combined['IMPACTED'] = parcels_combined['IMPACTED'].astype(int)
+    parcels_combined.to_file(OUTPUT_SOMERVILLE_PARCELS_LABELED_SHP)
 
 
