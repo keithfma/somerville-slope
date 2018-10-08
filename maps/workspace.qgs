@@ -5,13 +5,28 @@
   <evaluateDefaultValues active="0"/>
   <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="">
     <customproperties/>
+    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_slope_dir_lstsq_30ft20181007222126951" source="/home/keith/prj/somerville-slope/data/output/somerville_slope_dir_lstsq_30ft.gtif" name="somerville_slope_dir_lstsq_30ft">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_slope_pct_lstsq_30ft20181007221523287" source="/home/keith/prj/somerville-slope/data/output/somerville_slope_pct_lstsq_30ft.gtif" name="somerville_slope_pct_lstsq_30ft">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_median_1620181007203951965" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_median_16.gtif" name="somerville_elev_median_16">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_lstsq_30ft20181007221233003" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_lstsq_30ft.gtif" name="somerville_elev_lstsq_30ft">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_mean_1620181007203950736" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_mean_16.gtif" name="somerville_elev_mean_16">
+      <customproperties/>
+    </layer-tree-layer>
     <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_mask20181007171622248" source="/home/keith/prj/somerville-slope/data/output/somerville_mask.gtif" name="somerville_mask">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Unchecked" id="somerville_boundary20181006190442437" source="/home/keith/prj/somerville-slope/data/output/somerville_boundary.shp" name="somerville_boundary">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="1" providerKey="wms" checked="Qt::Checked" id="OSM_Standard20181007081909364" source="type=xyz&amp;zmin=0&amp;zmax=19&amp;url=http://tile.openstreetmap.org/{z}/{x}/{y}.png" name="OSM Standard">
+    <layer-tree-layer expanded="1" providerKey="wms" checked="Qt::Checked" id="OSM_Standard20181007081909364" source="crs=EPSG:3857&amp;format=&amp;type=xyz&amp;url=http://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;zmax=19&amp;zmin=0" name="OSM Standard">
       <customproperties/>
     </layer-tree-layer>
   </layer-tree-group>
@@ -19,10 +34,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>324210.81475562520790845</xmin>
-      <ymin>4693116.17655151057988405</ymin>
-      <xmax>329470.26475562516134232</xmax>
-      <ymax>4698521.05155151057988405</ymax>
+      <xmin>326248.15958129632053897</xmin>
+      <ymin>4694851.61500635836273432</ymin>
+      <xmax>327379.62518413324141875</xmax>
+      <ymax>4696014.2529496205970645</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -42,10 +57,19 @@
     <layer_coordinate_transform_info>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_mask20181006190448894"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev20181007075320739"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev20181007174253054"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_median_1620181007175101575"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_median_1620181007203951965"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007082134499"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_boundary20181006190442437"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_mean_1620181007203950736"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_lstsq_30ft20181007221233003"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007081847740"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_mask20181007171622248"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_pct_lstsq_30ft20181007221523287"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev__mean_1620181007175239626"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_pct_lstsq_30ft20181007221419700"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_dir_lstsq_30ft20181007222126951"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="OSM_Standard20181007081909364"/>
     </layer_coordinate_transform_info>
   </mapcanvas>
@@ -54,9 +78,39 @@
       <item>somerville_boundary20181006190442437</item>
       <item>OSM_Standard20181007081909364</item>
       <item>somerville_mask20181007171622248</item>
+      <item>somerville_elev_mean_1620181007203950736</item>
+      <item>somerville_elev_median_1620181007203951965</item>
+      <item>somerville_elev_lstsq_30ft20181007221233003</item>
+      <item>somerville_slope_pct_lstsq_30ft20181007221523287</item>
+      <item>somerville_slope_dir_lstsq_30ft20181007222126951</item>
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_slope_dir_lstsq_30ft" showFeatureCount="0">
+      <filegroup open="false" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="somerville_slope_dir_lstsq_30ft20181007222126951" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_slope_pct_lstsq_30ft" showFeatureCount="0">
+      <filegroup open="false" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="somerville_slope_pct_lstsq_30ft20181007221523287" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_elev_median_16" showFeatureCount="0">
+      <filegroup open="false" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="somerville_elev_median_1620181007203951965" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_elev_lstsq_30ft" showFeatureCount="0">
+      <filegroup open="false" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="somerville_elev_lstsq_30ft20181007221233003" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_elev_mean_16" showFeatureCount="0">
+      <filegroup open="false" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="somerville_elev_mean_1620181007203950736" visible="0"/>
+      </filegroup>
+    </legendlayer>
     <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_mask" showFeatureCount="0">
       <filegroup open="false" hidden="false">
         <legendlayerfile isInOverview="0" layerid="somerville_mask20181007171622248" visible="0"/>
@@ -82,7 +136,7 @@
         <ymax>20037508.34278924390673637</ymax>
       </extent>
       <id>OSM_Standard20181007081909364</id>
-      <datasource>type=xyz&amp;zmin=0&amp;zmax=19&amp;url=http://tile.openstreetmap.org/{z}/{x}/{y}.png</datasource>
+      <datasource>crs=EPSG:3857&amp;format=&amp;type=xyz&amp;url=http://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;zmax=19&amp;zmin=0</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -307,6 +361,156 @@
       </defaults>
       <previewExpression></previewExpression>
     </maplayer>
+    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+      <extent>
+        <xmin>324336.03975562518462539</xmin>
+        <ymin>4693245.36405151057988405</ymin>
+        <xmax>329345.03975562518462539</xmax>
+        <ymax>4698392.36405151057988405</ymax>
+      </extent>
+      <id>somerville_elev_lstsq_30ft20181007221233003</id>
+      <datasource>../data/output/somerville_elev_lstsq_30ft.gtif</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>somerville_elev_lstsq_30ft</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
+          <srsid>3103</srsid>
+          <srid>32619</srid>
+          <authid>EPSG:32619</authid>
+          <description>WGS 84 / UTM zone 19N</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <customproperties>
+        <property key="identify/format" value="Value"/>
+      </customproperties>
+      <provider>gdal</provider>
+      <noData>
+        <noDataList bandNo="1" useSrcNoData="1"/>
+      </noData>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <pipe>
+        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
+          <rasterTransparency/>
+          <contrastEnhancement>
+            <minValue>2.335109686851502</minValue>
+            <maxValue>33.168962324857716</maxValue>
+            <algorithm>StretchToMinimumMaximum</algorithm>
+          </contrastEnhancement>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+        <rasterresampler maxOversampling="2"/>
+      </pipe>
+      <blendMode>0</blendMode>
+    </maplayer>
+    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+      <extent>
+        <xmin>324336.03975562518462539</xmin>
+        <ymin>4693245.36405151057988405</ymin>
+        <xmax>329345.03975562518462539</xmax>
+        <ymax>4698392.36405151057988405</ymax>
+      </extent>
+      <id>somerville_elev_mean_1620181007203950736</id>
+      <datasource>../data/output/somerville_elev_mean_16.gtif</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>somerville_elev_mean_16</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
+          <srsid>3103</srsid>
+          <srid>32619</srid>
+          <authid>EPSG:32619</authid>
+          <description>WGS 84 / UTM zone 19N</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <customproperties>
+        <property key="identify/format" value="Value"/>
+      </customproperties>
+      <provider>gdal</provider>
+      <noData>
+        <noDataList bandNo="1" useSrcNoData="1"/>
+      </noData>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <pipe>
+        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
+          <rasterTransparency/>
+          <contrastEnhancement>
+            <minValue>2.248749826908112</minValue>
+            <maxValue>33.08312367534638</maxValue>
+            <algorithm>StretchToMinimumMaximum</algorithm>
+          </contrastEnhancement>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+        <rasterresampler maxOversampling="2"/>
+      </pipe>
+      <blendMode>0</blendMode>
+    </maplayer>
+    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+      <extent>
+        <xmin>324336.03975562518462539</xmin>
+        <ymin>4693245.36405151057988405</ymin>
+        <xmax>329345.03975562518462539</xmax>
+        <ymax>4698392.36405151057988405</ymax>
+      </extent>
+      <id>somerville_elev_median_1620181007203951965</id>
+      <datasource>../data/output/somerville_elev_median_16.gtif</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>somerville_elev_median_16</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
+          <srsid>3103</srsid>
+          <srid>32619</srid>
+          <authid>EPSG:32619</authid>
+          <description>WGS 84 / UTM zone 19N</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <customproperties>
+        <property key="identify/format" value="Value"/>
+      </customproperties>
+      <provider>gdal</provider>
+      <noData>
+        <noDataList bandNo="1" useSrcNoData="1"/>
+      </noData>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <pipe>
+        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
+          <rasterTransparency/>
+          <contrastEnhancement>
+            <minValue>2.255600074768067</minValue>
+            <maxValue>33.09860060119629</maxValue>
+            <algorithm>StretchToMinimumMaximum</algorithm>
+          </contrastEnhancement>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+        <rasterresampler maxOversampling="2"/>
+      </pipe>
+      <blendMode>0</blendMode>
+    </maplayer>
     <maplayer minimumScale="inf" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
       <extent>
         <xmin>324336.03975562518462539</xmin>
@@ -351,6 +555,111 @@
             <maxValue>1</maxValue>
             <algorithm>StretchToMinimumMaximum</algorithm>
           </contrastEnhancement>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+        <rasterresampler maxOversampling="2"/>
+      </pipe>
+      <blendMode>0</blendMode>
+    </maplayer>
+    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+      <extent>
+        <xmin>324336.03975562518462539</xmin>
+        <ymin>4693245.36405151057988405</ymin>
+        <xmax>329345.03975562518462539</xmax>
+        <ymax>4698392.36405151057988405</ymax>
+      </extent>
+      <id>somerville_slope_dir_lstsq_30ft20181007222126951</id>
+      <datasource>../data/output/somerville_slope_dir_lstsq_30ft.gtif</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>somerville_slope_dir_lstsq_30ft</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
+          <srsid>3103</srsid>
+          <srid>32619</srid>
+          <authid>EPSG:32619</authid>
+          <description>WGS 84 / UTM zone 19N</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <customproperties>
+        <property key="identify/format" value="Value"/>
+      </customproperties>
+      <provider>gdal</provider>
+      <noData>
+        <noDataList bandNo="1" useSrcNoData="1"/>
+      </noData>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <pipe>
+        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
+          <rasterTransparency/>
+          <contrastEnhancement>
+            <minValue>-172.07756268310547</minValue>
+            <maxValue>170.9996162414551</maxValue>
+            <algorithm>StretchToMinimumMaximum</algorithm>
+          </contrastEnhancement>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+        <rasterresampler maxOversampling="2"/>
+      </pipe>
+      <blendMode>0</blendMode>
+    </maplayer>
+    <maplayer minimumScale="inf" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+      <extent>
+        <xmin>324336.03975562518462539</xmin>
+        <ymin>4693245.36405151057988405</ymin>
+        <xmax>329345.03975562518462539</xmax>
+        <ymax>4698392.36405151057988405</ymax>
+      </extent>
+      <id>somerville_slope_pct_lstsq_30ft20181007221523287</id>
+      <datasource>../data/output/somerville_slope_pct_lstsq_30ft.gtif</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>somerville_slope_pct_lstsq_30ft</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
+          <srsid>3103</srsid>
+          <srid>32619</srid>
+          <authid>EPSG:32619</authid>
+          <description>WGS 84 / UTM zone 19N</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <customproperties>
+        <property key="embeddedWidgets/count" value="0"/>
+        <property key="identify/format" value="Value"/>
+      </customproperties>
+      <provider>gdal</provider>
+      <noData>
+        <noDataList bandNo="1" useSrcNoData="1"/>
+      </noData>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <pipe>
+        <rasterrenderer opacity="1" alphaBand="-1" classificationMax="25" classificationMinMaxOrigin="User" band="1" classificationMin="0" type="singlebandpseudocolor">
+          <rasterTransparency/>
+          <rastershader>
+            <colorrampshader colorRampType="INTERPOLATED" clip="0">
+              <item alpha="255" value="0" label="0" color="#fef0d9"/>
+              <item alpha="255" value="6.25" label="6.25" color="#fdcc8a"/>
+              <item alpha="255" value="12.5" label="12.5" color="#fc8d59"/>
+              <item alpha="255" value="18.8" label="18.8" color="#e34a33"/>
+              <item alpha="255" value="25" label="25" color="#b30000"/>
+            </colorrampshader>
+          </rastershader>
         </rasterrenderer>
         <brightnesscontrast brightness="0" contrast="0"/>
         <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>

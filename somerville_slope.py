@@ -36,6 +36,8 @@ OUTPUT_INDEX_SOMERVILLE_SHP = 'data/output/somerville_lidar_index.shp'
 OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
 OUTPUT_SOMERVILLE_KDTREE = 'data/output/somerville_kdtree.pkl'
 OUTPUT_SOMERVILLE_ELEV_PREFIX = 'data/output/somerville_elev'
+OUTPUT_SOMERVILLE_SLOPE_PCT_GTIF = 'data/output/somerville_slope_pct_lstsq_30ft.gtif'
+OUTPUT_SOMERVILLE_SLOPE_DIR_GTIF = 'data/output/somerville_slope_dir_lstsq_30ft.gtif'
 
 
 def lidar_download():
@@ -257,62 +259,64 @@ def create_somerville_elevation_geotiff(knn=16, agg='median'):
 
 def create_somerville_30ft_geotiffs(knn=16, agg='median'):
     """Compute gridded elev and gradient grids using least-squares, save geotiffs"""
-    pass
 
-# # get points and KDTree
-# tree, zpts = lidar_kdtree(load=True)
- 
-# prepare output grids from somerville mask raster
-mask, x_vec, y_vec, meta = read_somerville_mask_geotiff()
-mask = mask.astype(np.bool)
-elev = np.zeros(mask.shape, dtype=np.float32)
-elev[:] = np.nan
-slope_dir = elev.copy()
-slope_pct = elev.copy()
+    # get points and KDTree
+    tree, zpts = lidar_kdtree(load=True)
 
-# populate all grid points
-nrows, ncols = elev.shape
-for ii in range(nrows):
+    # prepare output grids from somerville mask raster
+    mask, x_vec, y_vec, meta = read_somerville_mask_geotiff()
+    mask = mask.astype(np.bool)
+    elev = np.zeros(mask.shape, dtype=np.float32)
+    elev[:] = np.nan
+    slope_dir = elev.copy()
+    slope_pct = elev.copy()
 
-    # progress monitor
-    if ii % 100 == 0 or ii == nrows-1:
-        print(f'Row {ii} / {nrows}')
+    # populate all grid points
+    nrows, ncols = elev.shape
+    for ii in range(nrows):
 
-    for jj in range(ncols):
-        if mask[ii, jj]:
+        # progress monitor
+        if ii % 100 == 0 or ii == nrows-1:
+            print(f'Row {ii} / {nrows}')
 
-            # get point coords
-            this_x = x_vec[jj]
-            this_y = y_vec[ii]
+        for jj in range(ncols):
+            if mask[ii, jj]:
 
-            # get all pts within 15 ft (yields 30-foot diameter circle ROI)
-            nbr_idx = tree.query_ball_point((this_x, this_y), NBR_RADIUS)
-            nbr_num = len(nbr_idx)
-            if nbr_num < FIT_MIN_PTS:
-                continue
+                # get point coords
+                this_x = x_vec[jj]
+                this_y = y_vec[ii]
 
-            # find best-fit plane to points
-            fit = np.linalg.lstsq(
-                a=np.column_stack(( np.ones((nbr_num, 1)), tree.data[nbr_idx] )),
-                b=zpts[nbr_idx],
-                rcond=None
-                )[0]
+                # get all pts within 15 ft (yields 30-foot diameter circle ROI)
+                nbr_idx = tree.query_ball_point((this_x, this_y), NBR_RADIUS)
+                nbr_num = len(nbr_idx)
+                if nbr_num < FIT_MIN_PTS:
+                    continue
 
-            # extract elevation (evaluate best fit plane at this point)
-            elev[ii,jj] = fit[0] + fit[1]*this_x + fit[2]*this_y
+                # find best-fit plane to points
+                fit = np.linalg.lstsq(
+                    a=np.column_stack(( np.ones((nbr_num, 1)), tree.data[nbr_idx] )),
+                    b=zpts[nbr_idx],
+                    rcond=None
+                    )[0]
 
-            # extract slope magnitude (vector magnitude is m/m, times 100 to percent grade)
-            # NOTE: confusingly, percent grade can be > 100, see: https://en.wikipedia.org/wiki/Grade_(slope)
-            slope_pct[ii,jj] = np.sqrt(fit[1]*fit[1] + fit[2]*fit[2])*100
-            
-            # extract slope direction
-            slope_dir[ii,jj] = np.degrees(np.arctan2(fit[2], fit[1]))
+                # extract elevation (evaluate best fit plane at this point)
+                elev[ii,jj] = fit[0] + fit[1]*this_x + fit[2]*this_y
 
-# write results to geotiff
-output_file = 'delete_me.gtif'
-meta.update({
-    'driver': 'GTiff',
-    'dtype': 'float32',
-    })
-with rasterio.open(output_file, 'w', **meta) as elev_raster:
-    elev_raster.write(elev, 1)
+                # extract slope magnitude (vector magnitude is m/m, times 100 to percent grade)
+                # NOTE: confusingly, percent grade can be > 100, see: https://en.wikipedia.org/wiki/Grade_(slope)
+                slope_pct[ii,jj] = np.sqrt(fit[1]*fit[1] + fit[2]*fit[2])*100
+                
+                # extract slope direction
+                slope_dir[ii,jj] = np.degrees(np.arctan2(fit[2], fit[1]))
+
+    # write results to geotiff
+    meta.update({
+        'driver': 'GTiff',
+        'dtype': 'float32',
+        })
+    with rasterio.open(f'{OUTPUT_SOMERVILLE_ELEV_PREFIX}_lstsq_30ft.gtif', 'w', **meta) as elev_raster:
+        elev_raster.write(elev, 1)
+    with rasterio.open(OUTPUT_SOMERVILLE_SLOPE_PCT_GTIF, 'w', **meta) as slope_pct_raster:
+        slope_pct_raster.write(slope_pct, 1)
+    with rasterio.open(OUTPUT_SOMERVILLE_SLOPE_DIR_GTIF, 'w', **meta) as slope_dir_raster:
+        slope_dir_raster.write(slope_dir, 1)
