@@ -5,28 +5,16 @@
   <evaluateDefaultValues active="0"/>
   <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="">
     <customproperties/>
-    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_slope_dir_lstsq_30ft20181007222126951" source="/home/keith/prj/somerville-slope/data/output/somerville_slope_dir_lstsq_30ft.gtif" name="somerville_slope_dir_lstsq_30ft">
+    <layer-tree-layer expanded="0" providerKey="ogr" checked="Qt::Unchecked" id="somerville_parcels_labeled20181008014756159" source="/home/keith/prj/somerville-slope/data/output/somerville_parcels_labeled.shp" name="Parcels">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_slope_pct_lstsq_30ft20181007221523287" source="/home/keith/prj/somerville-slope/data/output/somerville_slope_pct_lstsq_30ft.gtif" name="somerville_slope_pct_lstsq_30ft">
+    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_slope_pct_lstsq_30ft20181008014333162" source="/home/keith/prj/somerville-slope/data/output/somerville_slope_pct_lstsq_30ft.gtif" name="Slope [% grade]">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_median_1620181007203951965" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_median_16.gtif" name="somerville_elev_median_16">
+    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_lstsq_30ft20181008014301644" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_lstsq_30ft.gtif" name="Elevation [meters]">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_lstsq_30ft20181007221233003" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_lstsq_30ft.gtif" name="somerville_elev_lstsq_30ft">
-      <customproperties/>
-    </layer-tree-layer>
-    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_mean_1620181007203950736" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_mean_16.gtif" name="somerville_elev_mean_16">
-      <customproperties/>
-    </layer-tree-layer>
-    <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_mask20181007171622248" source="/home/keith/prj/somerville-slope/data/output/somerville_mask.gtif" name="somerville_mask">
-      <customproperties/>
-    </layer-tree-layer>
-    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Unchecked" id="somerville_boundary20181006190442437" source="/home/keith/prj/somerville-slope/data/output/somerville_boundary.shp" name="somerville_boundary">
-      <customproperties/>
-    </layer-tree-layer>
-    <layer-tree-layer expanded="1" providerKey="wms" checked="Qt::Checked" id="OSM_Standard20181007081909364" source="crs=EPSG:3857&amp;format=&amp;type=xyz&amp;url=http://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;zmax=19&amp;zmin=0" name="OSM Standard">
+    <layer-tree-layer expanded="0" providerKey="wms" checked="Qt::Checked" id="OSM_Standard20181007081909364" source="crs=EPSG:3857&amp;format=&amp;type=xyz&amp;url=http://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;zmax=19&amp;zmin=0" name="OpenStreetMap">
       <customproperties/>
     </layer-tree-layer>
   </layer-tree-group>
@@ -34,10 +22,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>326248.15958129632053897</xmin>
-      <ymin>4694851.61500635836273432</ymin>
-      <xmax>327379.62518413324141875</xmax>
-      <ymax>4696014.2529496205970645</ymax>
+      <xmin>324572.18579270387999713</xmin>
+      <ymin>4693810.96055329404771328</ymin>
+      <xmax>329177.33955564233474433</xmax>
+      <ymax>4696524.02467825636267662</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -55,78 +43,507 @@
     </destinationsrs>
     <rendermaptile>0</rendermaptile>
     <layer_coordinate_transform_info>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_mask20181006190448894"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev20181007075320739"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev20181007174253054"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_median_1620181007175101575"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_median_1620181007203951965"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007082134499"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="someville_parcels20181007235511570"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007225501960"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_boundary20181006190442437"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_mean_1620181007203950736"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_lstsq_30ft20181007221233003"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007081847740"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_mask20181007171622248"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_pct_lstsq_30ft20181007221523287"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev__mean_1620181007175239626"/>
-      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_pct_lstsq_30ft20181007221419700"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007225116211"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev20181007075320739"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007081847740"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007225920640"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_median_1620181007175101575"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev20181007174253054"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_parcels20181007235455165"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007082134499"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="someville_parcels20181007234113527"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_pct_lstsq_30ft20181008014333162"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_parcels20181008000505888"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_mask20181006190448894"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="someville_parcels20181007235129575"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_dir_lstsq_30ft20181007222126951"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_median_1620181007203951965"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_pct_lstsq_30ft20181007221523287"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_mean_1620181007203950736"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_lstsq_30ft20181008014301644"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_slope_pct_lstsq_30ft20181007221419700"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="delete_me20181007225024517"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev__mean_1620181007175239626"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_parcels20181007235846688"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_elev_lstsq_30ft20181007221233003"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="USER:100000" srcDatumTransform="-1" destDatumTransform="-1" layerid="M274TaxPar20181007224203677"/>
       <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="OSM_Standard20181007081909364"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_parcels20181007235139291"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_parcels20181007234520984"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_parcels_labeled20181008011016915"/>
+      <layer_coordinate_transform destAuthId="EPSG:32619" srcAuthId="EPSG:32619" srcDatumTransform="-1" destDatumTransform="-1" layerid="somerville_parcels_labeled20181008014756159"/>
     </layer_coordinate_transform_info>
   </mapcanvas>
   <layer-tree-canvas>
     <custom-order enabled="0">
-      <item>somerville_boundary20181006190442437</item>
       <item>OSM_Standard20181007081909364</item>
-      <item>somerville_mask20181007171622248</item>
-      <item>somerville_elev_mean_1620181007203950736</item>
-      <item>somerville_elev_median_1620181007203951965</item>
-      <item>somerville_elev_lstsq_30ft20181007221233003</item>
-      <item>somerville_slope_pct_lstsq_30ft20181007221523287</item>
-      <item>somerville_slope_dir_lstsq_30ft20181007222126951</item>
+      <item>somerville_elev_lstsq_30ft20181008014301644</item>
+      <item>somerville_slope_pct_lstsq_30ft20181008014333162</item>
+      <item>somerville_parcels_labeled20181008014756159</item>
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_slope_dir_lstsq_30ft" showFeatureCount="0">
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="Parcels" showFeatureCount="0">
       <filegroup open="false" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="somerville_slope_dir_lstsq_30ft20181007222126951" visible="0"/>
+        <legendlayerfile isInOverview="0" layerid="somerville_parcels_labeled20181008014756159" visible="0"/>
       </filegroup>
     </legendlayer>
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_slope_pct_lstsq_30ft" showFeatureCount="0">
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="Slope [% grade]" showFeatureCount="0">
       <filegroup open="false" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="somerville_slope_pct_lstsq_30ft20181007221523287" visible="0"/>
+        <legendlayerfile isInOverview="0" layerid="somerville_slope_pct_lstsq_30ft20181008014333162" visible="0"/>
       </filegroup>
     </legendlayer>
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_elev_median_16" showFeatureCount="0">
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="Elevation [meters]" showFeatureCount="0">
       <filegroup open="false" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="somerville_elev_median_1620181007203951965" visible="0"/>
+        <legendlayerfile isInOverview="0" layerid="somerville_elev_lstsq_30ft20181008014301644" visible="0"/>
       </filegroup>
     </legendlayer>
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_elev_lstsq_30ft" showFeatureCount="0">
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="OpenStreetMap" showFeatureCount="0">
       <filegroup open="false" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="somerville_elev_lstsq_30ft20181007221233003" visible="0"/>
-      </filegroup>
-    </legendlayer>
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_elev_mean_16" showFeatureCount="0">
-      <filegroup open="false" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="somerville_elev_mean_1620181007203950736" visible="0"/>
-      </filegroup>
-    </legendlayer>
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="somerville_mask" showFeatureCount="0">
-      <filegroup open="false" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="somerville_mask20181007171622248" visible="0"/>
-      </filegroup>
-    </legendlayer>
-    <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="somerville_boundary" showFeatureCount="0">
-      <filegroup open="true" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="somerville_boundary20181006190442437" visible="0"/>
-      </filegroup>
-    </legendlayer>
-    <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="OSM Standard" showFeatureCount="0">
-      <filegroup open="true" hidden="false">
         <legendlayerfile isInOverview="0" layerid="OSM_Standard20181007081909364" visible="1"/>
       </filegroup>
     </legendlayer>
   </legend>
+  <Composer title="somerville_impacted_parcels" visible="0">
+    <Composition resizeToContentsMarginLeft="0" snapping="0" showPages="1" guidesVisible="1" resizeToContentsMarginTop="0" worldFileMap="{e7ea76e8-44dc-468a-8158-e73cd17eed68}" alignmentSnap="1" printResolution="300" paperWidth="297" gridVisible="0" snapGridOffsetX="0" smartGuides="1" snapGridOffsetY="0" resizeToContentsMarginRight="0" snapTolerancePixels="5" printAsRaster="0" generateWorldFile="0" paperHeight="210" numPages="1" snapGridResolution="10" resizeToContentsMarginBottom="0">
+      <symbol alpha="1" clip_to_extent="1" type="fill" name="">
+        <layer pass="0" class="SimpleFill" locked="0">
+          <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="color" v="255,255,255,255"/>
+          <prop k="joinstyle" v="miter"/>
+          <prop k="offset" v="0,0"/>
+          <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="outline_color" v="0,0,0,255"/>
+          <prop k="outline_style" v="no"/>
+          <prop k="outline_width" v="0.26"/>
+          <prop k="outline_width_unit" v="MM"/>
+          <prop k="style" v="solid"/>
+        </layer>
+      </symbol>
+      <ComposerLegend symbolWidth="7" title="Legend" rasterBorderWidth="0" titleAlignment="1" map="0" wmsLegendWidth="50" rasterBorderColor="0,0,0,255" wrapChar="" fontColor="#000000" legendFilterByAtlas="0" columnCount="1" wmsLegendHeight="25" columnSpace="2" symbolHeight="4" equalColumnWidth="0" resizeToContents="1" splitLayer="0" boxSpace="2" rasterBorder="1">
+        <styles>
+          <style marginBottom="2" name="title">
+            <styleFont description="Ubuntu,16,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="group">
+            <styleFont description="Ubuntu,14,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="subgroup">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="symbol">
+            <styleFont description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" marginLeft="2" name="symbolLabel">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+        </styles>
+        <layer-tree-group expanded="1" checked="Qt::Checked" name="">
+          <customproperties/>
+          <layer-tree-layer expanded="0" providerKey="ogr" checked="Qt::Checked" id="somerville_parcels_labeled20181008014756159" source="/home/keith/prj/somerville-slope/data/output/somerville_parcels_labeled.shp" name="Parcels">
+            <customproperties/>
+          </layer-tree-layer>
+        </layer-tree-group>
+        <ComposerItem pagey="8.73125" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="244.341" y="8.73125" visibility="1" zValue="3" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="39.0594" outlineWidth="0.3" excludeFromExports="0" uuid="{a45a39d4-7d35-4c8e-a6f1-4476ee520f8c}" height="31.3" itemRotation="0" frame="false" pagex="244.341">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerLegend>
+      <ComposerScaleBar lineCapStyle="square" style="Single Box" numMapUnitsPerScaleBarUnit="1" segmentSizeMode="0" alignment="0" numSegments="2" segmentMillimeters="27.2719" lineJoinStyle="miter" minBarWidth="50" numUnitsPerSegment="750" units="1" labelBarSpace="3" outlineWidth="0.3" numSegmentsLeft="2" maxBarWidth="150" height="3" boxContentSpace="1" mapId="0" unitLabel="m">
+        <scaleBarFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+        <fillColor alpha="255" red="0" blue="0" green="0"/>
+        <fillColor2 alpha="255" red="255" blue="255" green="255"/>
+        <strokeColor alpha="255" red="0" blue="0" green="0"/>
+        <textColor alpha="255" red="0" blue="0" green="0"/>
+        <ComposerItem pagey="179.652" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="17.6417" y="179.652" visibility="1" zValue="2" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="97.2906" outlineWidth="0.3" excludeFromExports="0" uuid="{bf245a88-2ceb-45a2-9a0a-e5332b19c528}" height="20.2646" itemRotation="0" frame="false" pagex="17.6417">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerScaleBar>
+      <ComposerMap followPreset="false" mapRotation="0" keepLayerSet="false" followPresetName="" id="0" previewMode="Cache" drawCanvasItems="true">
+        <Extent ymin="4693030.45813247561454773" xmin="322944.51225525629706681" ymax="4698420.45813797321170568" xmax="330782.01226325053721666"/>
+        <LayerSet/>
+        <Grid/>
+        <AtlasMap scalingMode="2" atlasDriven="0" margin="0.10000000000000001"/>
+        <ComposerItem pagey="3.91667" page="1" id="" lastValidViewScaleFactor="3.77953" positionMode="0" positionLock="false" x="6" y="3.91667" visibility="1" zValue="1" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="285" outlineWidth="0.3" excludeFromExports="0" uuid="{e7ea76e8-44dc-468a-8158-e73cd17eed68}" height="196" itemRotation="0" frame="false" pagex="6">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerMap>
+      <customproperties/>
+    </Composition>
+  </Composer>
+  <Composer title="somerville_elevation" visible="0">
+    <Composition resizeToContentsMarginLeft="0" snapping="0" showPages="1" guidesVisible="1" resizeToContentsMarginTop="0" worldFileMap="{e7ea76e8-44dc-468a-8158-e73cd17eed68}" alignmentSnap="1" printResolution="300" paperWidth="297" gridVisible="0" snapGridOffsetX="0" smartGuides="1" snapGridOffsetY="0" resizeToContentsMarginRight="0" snapTolerancePixels="5" printAsRaster="0" generateWorldFile="0" paperHeight="210" numPages="1" snapGridResolution="10" resizeToContentsMarginBottom="0">
+      <symbol alpha="1" clip_to_extent="1" type="fill" name="">
+        <layer pass="0" class="SimpleFill" locked="0">
+          <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="color" v="255,255,255,255"/>
+          <prop k="joinstyle" v="miter"/>
+          <prop k="offset" v="0,0"/>
+          <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="outline_color" v="0,0,0,255"/>
+          <prop k="outline_style" v="no"/>
+          <prop k="outline_width" v="0.26"/>
+          <prop k="outline_width_unit" v="MM"/>
+          <prop k="style" v="solid"/>
+        </layer>
+      </symbol>
+      <ComposerLegend symbolWidth="7" title="Legend" rasterBorderWidth="0" titleAlignment="1" map="0" wmsLegendWidth="50" rasterBorderColor="0,0,0,255" wrapChar="" fontColor="#000000" legendFilterByAtlas="0" columnCount="1" wmsLegendHeight="25" columnSpace="2" symbolHeight="4" equalColumnWidth="0" resizeToContents="1" splitLayer="0" boxSpace="2" rasterBorder="1">
+        <styles>
+          <style marginBottom="2" name="title">
+            <styleFont description="Ubuntu,16,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="group">
+            <styleFont description="Ubuntu,14,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="subgroup">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="symbol">
+            <styleFont description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" marginLeft="2" name="symbolLabel">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+        </styles>
+        <layer-tree-group expanded="1" checked="Qt::Unchecked" name="">
+          <customproperties/>
+          <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Unchecked" id="somerville_elev_lstsq_30ft20181008014301644" source="/home/keith/prj/somerville-slope/data/output/somerville_elev_lstsq_30ft.gtif" name="Elevation [meters]">
+            <customproperties/>
+          </layer-tree-layer>
+        </layer-tree-group>
+        <ComposerItem pagey="8.73125" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="244.341" y="8.73125" visibility="1" zValue="3" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="39.0453" outlineWidth="0.3" excludeFromExports="0" uuid="{120ca837-e36e-429c-9691-489ffb73be15}" height="49.3" itemRotation="0" frame="false" pagex="244.341">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerLegend>
+      <ComposerScaleBar lineCapStyle="square" style="Single Box" numMapUnitsPerScaleBarUnit="1" segmentSizeMode="0" alignment="0" numSegments="2" segmentMillimeters="27.2719" lineJoinStyle="miter" minBarWidth="50" numUnitsPerSegment="750" units="1" labelBarSpace="3" outlineWidth="0.3" numSegmentsLeft="2" maxBarWidth="150" height="3" boxContentSpace="1" mapId="0" unitLabel="m">
+        <scaleBarFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+        <fillColor alpha="255" red="0" blue="0" green="0"/>
+        <fillColor2 alpha="255" red="255" blue="255" green="255"/>
+        <strokeColor alpha="255" red="0" blue="0" green="0"/>
+        <textColor alpha="255" red="0" blue="0" green="0"/>
+        <ComposerItem pagey="179.652" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="17.6417" y="179.652" visibility="1" zValue="2" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="97.2906" outlineWidth="0.3" excludeFromExports="0" uuid="{f09f905e-84c9-4984-909c-a6e409d96dd7}" height="20.2646" itemRotation="0" frame="false" pagex="17.6417">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerScaleBar>
+      <ComposerMap followPreset="false" mapRotation="0" keepLayerSet="false" followPresetName="" id="0" previewMode="Cache" drawCanvasItems="true">
+        <Extent ymin="4693030.45813247561454773" xmin="322944.51225525629706681" ymax="4698420.45813797321170568" xmax="330782.01226325053721666"/>
+        <LayerSet/>
+        <Grid/>
+        <ComposerMapGrid rightAnnotationDirection="0" gridFramePenColor="0,0,0,255" show="0" bottomAnnotationPosition="1" annotationPrecision="3" showAnnotation="0" topFrameDivisions="0" uuid="{85c24951-a440-4f12-9053-6a75f22aca8c}" leftAnnotationDirection="0" topAnnotationPosition="1" rightAnnotationDisplay="0" offsetX="0" offsetY="0" rightFrameDivisions="0" gridStyle="0" annotationFontColor="0,0,0,255" intervalX="0" gridFrameSideFlags="15" intervalY="0" bottomAnnotationDirection="0" leftAnnotationDisplay="0" leftFrameDivisions="0" frameFillColor1="255,255,255,255" annotationExpression="" frameFillColor2="0,0,0,255" crossLength="3" gridFramePenThickness="0.5" bottomAnnotationDisplay="0" unit="0" topAnnotationDisplay="0" leftAnnotationPosition="1" blendMode="0" gridFrameStyle="0" rightAnnotationPosition="1" gridFrameWidth="2" name="Grid 1" annotationFormat="0" bottomFrameDivisions="0" topAnnotationDirection="0" frameAnnotationDistance="1">
+          <lineStyle>
+            <symbol alpha="1" clip_to_extent="1" type="line" name="">
+              <layer pass="0" class="SimpleLine" locked="0">
+                <prop k="capstyle" v="square"/>
+                <prop k="customdash" v="5;2"/>
+                <prop k="customdash_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="customdash_unit" v="MM"/>
+                <prop k="draw_inside_polygon" v="0"/>
+                <prop k="joinstyle" v="bevel"/>
+                <prop k="line_color" v="0,0,0,255"/>
+                <prop k="line_style" v="solid"/>
+                <prop k="line_width" v="0"/>
+                <prop k="line_width_unit" v="MM"/>
+                <prop k="offset" v="0"/>
+                <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="offset_unit" v="MM"/>
+                <prop k="use_custom_dash" v="0"/>
+                <prop k="width_map_unit_scale" v="0,0,0,0,0,0"/>
+              </layer>
+            </symbol>
+          </lineStyle>
+          <markerStyle>
+            <symbol alpha="1" clip_to_extent="1" type="marker" name="">
+              <layer pass="0" class="SimpleMarker" locked="0">
+                <prop k="angle" v="0"/>
+                <prop k="color" v="0,0,0,255"/>
+                <prop k="horizontal_anchor_point" v="1"/>
+                <prop k="joinstyle" v="bevel"/>
+                <prop k="name" v="circle"/>
+                <prop k="offset" v="0,0"/>
+                <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="offset_unit" v="MM"/>
+                <prop k="outline_color" v="0,0,0,255"/>
+                <prop k="outline_style" v="solid"/>
+                <prop k="outline_width" v="0"/>
+                <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="outline_width_unit" v="MM"/>
+                <prop k="scale_method" v="diameter"/>
+                <prop k="size" v="2"/>
+                <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="size_unit" v="MM"/>
+                <prop k="vertical_anchor_point" v="1"/>
+              </layer>
+            </symbol>
+          </markerStyle>
+          <annotationFontProperties description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+        </ComposerMapGrid>
+        <AtlasMap scalingMode="2" atlasDriven="0" margin="0.10000000000000001"/>
+        <ComposerItem pagey="3.91667" page="1" id="" lastValidViewScaleFactor="2.31327" positionMode="0" positionLock="false" x="6" y="3.91667" visibility="1" zValue="1" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="285" outlineWidth="0.3" excludeFromExports="0" uuid="{51bc4c13-ec44-4bbc-9cea-027f3268a77a}" height="196" itemRotation="0" frame="false" pagex="6">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerMap>
+      <customproperties/>
+    </Composition>
+  </Composer>
+  <Composer title="somerville_slope" visible="0">
+    <Composition resizeToContentsMarginLeft="0" snapping="0" showPages="1" guidesVisible="1" resizeToContentsMarginTop="0" worldFileMap="{e7ea76e8-44dc-468a-8158-e73cd17eed68}" alignmentSnap="1" printResolution="300" paperWidth="297" gridVisible="0" snapGridOffsetX="0" smartGuides="1" snapGridOffsetY="0" resizeToContentsMarginRight="0" snapTolerancePixels="5" printAsRaster="0" generateWorldFile="0" paperHeight="210" numPages="1" snapGridResolution="10" resizeToContentsMarginBottom="0">
+      <symbol alpha="1" clip_to_extent="1" type="fill" name="">
+        <layer pass="0" class="SimpleFill" locked="0">
+          <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="color" v="255,255,255,255"/>
+          <prop k="joinstyle" v="miter"/>
+          <prop k="offset" v="0,0"/>
+          <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="outline_color" v="0,0,0,255"/>
+          <prop k="outline_style" v="no"/>
+          <prop k="outline_width" v="0.26"/>
+          <prop k="outline_width_unit" v="MM"/>
+          <prop k="style" v="solid"/>
+        </layer>
+      </symbol>
+      <ComposerLegend symbolWidth="7" title="Legend" rasterBorderWidth="0" titleAlignment="1" map="0" wmsLegendWidth="50" rasterBorderColor="0,0,0,255" wrapChar="" fontColor="#000000" legendFilterByAtlas="0" columnCount="1" wmsLegendHeight="25" columnSpace="2" symbolHeight="4" equalColumnWidth="0" resizeToContents="1" splitLayer="0" boxSpace="2" rasterBorder="1">
+        <styles>
+          <style marginBottom="2" name="title">
+            <styleFont description="Ubuntu,16,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="group">
+            <styleFont description="Ubuntu,14,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="subgroup">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="symbol">
+            <styleFont description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" marginLeft="2" name="symbolLabel">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+        </styles>
+        <layer-tree-group expanded="1" checked="Qt::Checked" name="">
+          <customproperties/>
+          <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Checked" id="somerville_slope_pct_lstsq_30ft20181008014333162" source="/home/keith/prj/somerville-slope/data/output/somerville_slope_pct_lstsq_30ft.gtif" name="Slope [% grade]">
+            <customproperties/>
+          </layer-tree-layer>
+        </layer-tree-group>
+        <ComposerItem pagey="8.73125" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="244.341" y="8.73125" visibility="1" zValue="3" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="34.0391" outlineWidth="0.3" excludeFromExports="0" uuid="{901353a4-cd3d-4e71-8b92-5b77f02ca560}" height="49.3" itemRotation="0" frame="false" pagex="244.341">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerLegend>
+      <ComposerScaleBar lineCapStyle="square" style="Single Box" numMapUnitsPerScaleBarUnit="1" segmentSizeMode="0" alignment="0" numSegments="2" segmentMillimeters="27.2719" lineJoinStyle="miter" minBarWidth="50" numUnitsPerSegment="750" units="1" labelBarSpace="3" outlineWidth="0.3" numSegmentsLeft="2" maxBarWidth="150" height="3" boxContentSpace="1" mapId="0" unitLabel="m">
+        <scaleBarFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+        <fillColor alpha="255" red="0" blue="0" green="0"/>
+        <fillColor2 alpha="255" red="255" blue="255" green="255"/>
+        <strokeColor alpha="255" red="0" blue="0" green="0"/>
+        <textColor alpha="255" red="0" blue="0" green="0"/>
+        <ComposerItem pagey="179.652" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="17.6417" y="179.652" visibility="1" zValue="2" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="97.2906" outlineWidth="0.3" excludeFromExports="0" uuid="{543e6356-75ad-4627-a91b-490569f4961f}" height="20.2646" itemRotation="0" frame="false" pagex="17.6417">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerScaleBar>
+      <ComposerMap followPreset="false" mapRotation="0" keepLayerSet="false" followPresetName="" id="0" previewMode="Cache" drawCanvasItems="true">
+        <Extent ymin="4693030.45813247561454773" xmin="322944.51225525629706681" ymax="4698420.45813797321170568" xmax="330782.01226325053721666"/>
+        <LayerSet/>
+        <Grid/>
+        <ComposerMapGrid rightAnnotationDirection="0" gridFramePenColor="0,0,0,255" show="0" bottomAnnotationPosition="1" annotationPrecision="3" showAnnotation="0" topFrameDivisions="0" uuid="{85c24951-a440-4f12-9053-6a75f22aca8c}" leftAnnotationDirection="0" topAnnotationPosition="1" rightAnnotationDisplay="0" offsetX="0" offsetY="0" rightFrameDivisions="0" gridStyle="0" annotationFontColor="0,0,0,255" intervalX="0" gridFrameSideFlags="15" intervalY="0" bottomAnnotationDirection="0" leftAnnotationDisplay="0" leftFrameDivisions="0" frameFillColor1="255,255,255,255" annotationExpression="" frameFillColor2="0,0,0,255" crossLength="3" gridFramePenThickness="0.5" bottomAnnotationDisplay="0" unit="0" topAnnotationDisplay="0" leftAnnotationPosition="1" blendMode="0" gridFrameStyle="0" rightAnnotationPosition="1" gridFrameWidth="2" name="Grid 1" annotationFormat="0" bottomFrameDivisions="0" topAnnotationDirection="0" frameAnnotationDistance="1">
+          <lineStyle>
+            <symbol alpha="1" clip_to_extent="1" type="line" name="">
+              <layer pass="0" class="SimpleLine" locked="0">
+                <prop k="capstyle" v="square"/>
+                <prop k="customdash" v="5;2"/>
+                <prop k="customdash_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="customdash_unit" v="MM"/>
+                <prop k="draw_inside_polygon" v="0"/>
+                <prop k="joinstyle" v="bevel"/>
+                <prop k="line_color" v="0,0,0,255"/>
+                <prop k="line_style" v="solid"/>
+                <prop k="line_width" v="0"/>
+                <prop k="line_width_unit" v="MM"/>
+                <prop k="offset" v="0"/>
+                <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="offset_unit" v="MM"/>
+                <prop k="use_custom_dash" v="0"/>
+                <prop k="width_map_unit_scale" v="0,0,0,0,0,0"/>
+              </layer>
+            </symbol>
+          </lineStyle>
+          <markerStyle>
+            <symbol alpha="1" clip_to_extent="1" type="marker" name="">
+              <layer pass="0" class="SimpleMarker" locked="0">
+                <prop k="angle" v="0"/>
+                <prop k="color" v="0,0,0,255"/>
+                <prop k="horizontal_anchor_point" v="1"/>
+                <prop k="joinstyle" v="bevel"/>
+                <prop k="name" v="circle"/>
+                <prop k="offset" v="0,0"/>
+                <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="offset_unit" v="MM"/>
+                <prop k="outline_color" v="0,0,0,255"/>
+                <prop k="outline_style" v="solid"/>
+                <prop k="outline_width" v="0"/>
+                <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="outline_width_unit" v="MM"/>
+                <prop k="scale_method" v="diameter"/>
+                <prop k="size" v="2"/>
+                <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="size_unit" v="MM"/>
+                <prop k="vertical_anchor_point" v="1"/>
+              </layer>
+            </symbol>
+          </markerStyle>
+          <annotationFontProperties description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+        </ComposerMapGrid>
+        <AtlasMap scalingMode="2" atlasDriven="0" margin="0.10000000000000001"/>
+        <ComposerItem pagey="3.91667" page="1" id="" lastValidViewScaleFactor="3.70538" positionMode="0" positionLock="false" x="6" y="3.91667" visibility="1" zValue="1" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="285" outlineWidth="0.3" excludeFromExports="0" uuid="{804aa183-2a0f-4418-bc75-9af303a3ea11}" height="196" itemRotation="0" frame="false" pagex="6">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerMap>
+      <customproperties/>
+    </Composition>
+  </Composer>
+  <Composer title="somerville_osm" visible="0">
+    <Composition resizeToContentsMarginLeft="0" snapping="0" showPages="1" guidesVisible="1" resizeToContentsMarginTop="0" worldFileMap="{e7ea76e8-44dc-468a-8158-e73cd17eed68}" alignmentSnap="1" printResolution="300" paperWidth="297" gridVisible="0" snapGridOffsetX="0" smartGuides="1" snapGridOffsetY="0" resizeToContentsMarginRight="0" snapTolerancePixels="5" printAsRaster="0" generateWorldFile="0" paperHeight="210" numPages="1" snapGridResolution="10" resizeToContentsMarginBottom="0">
+      <symbol alpha="1" clip_to_extent="1" type="fill" name="">
+        <layer pass="0" class="SimpleFill" locked="0">
+          <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="color" v="255,255,255,255"/>
+          <prop k="joinstyle" v="miter"/>
+          <prop k="offset" v="0,0"/>
+          <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="outline_color" v="0,0,0,255"/>
+          <prop k="outline_style" v="no"/>
+          <prop k="outline_width" v="0.26"/>
+          <prop k="outline_width_unit" v="MM"/>
+          <prop k="style" v="solid"/>
+        </layer>
+      </symbol>
+      <ComposerLegend symbolWidth="7" title="Legend" rasterBorderWidth="0" titleAlignment="1" map="0" wmsLegendWidth="50" rasterBorderColor="0,0,0,255" wrapChar="" fontColor="#000000" legendFilterByAtlas="0" columnCount="1" wmsLegendHeight="25" columnSpace="2" symbolHeight="4" equalColumnWidth="0" resizeToContents="1" splitLayer="0" boxSpace="2" rasterBorder="1">
+        <styles>
+          <style marginBottom="2" name="title">
+            <styleFont description="Ubuntu,16,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="group">
+            <styleFont description="Ubuntu,14,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="subgroup">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" name="symbol">
+            <styleFont description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+          <style marginTop="2" marginLeft="2" name="symbolLabel">
+            <styleFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+          </style>
+        </styles>
+        <layer-tree-group expanded="1" checked="Qt::Checked" name="">
+          <customproperties/>
+          <layer-tree-layer expanded="0" providerKey="gdal" checked="Qt::Checked" id="somerville_slope_pct_lstsq_30ft20181008014333162" source="/home/keith/prj/somerville-slope/data/output/somerville_slope_pct_lstsq_30ft.gtif" name="Slope [% grade]">
+            <customproperties/>
+          </layer-tree-layer>
+        </layer-tree-group>
+        <ComposerItem pagey="8.73125" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="244.341" y="8.73125" visibility="0" zValue="3" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="34.0391" outlineWidth="0.3" excludeFromExports="0" uuid="{917c8f29-3166-4270-84f6-6e39acf41123}" height="49.3" itemRotation="0" frame="false" pagex="244.341">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerLegend>
+      <ComposerScaleBar lineCapStyle="square" style="Single Box" numMapUnitsPerScaleBarUnit="1" segmentSizeMode="0" alignment="0" numSegments="2" segmentMillimeters="27.2719" lineJoinStyle="miter" minBarWidth="50" numUnitsPerSegment="750" units="1" labelBarSpace="3" outlineWidth="0.3" numSegmentsLeft="2" maxBarWidth="150" height="3" boxContentSpace="1" mapId="0" unitLabel="m">
+        <scaleBarFont description="Ubuntu,12,-1,5,50,0,0,0,0,0" style=""/>
+        <fillColor alpha="255" red="0" blue="0" green="0"/>
+        <fillColor2 alpha="255" red="255" blue="255" green="255"/>
+        <strokeColor alpha="255" red="0" blue="0" green="0"/>
+        <textColor alpha="255" red="0" blue="0" green="0"/>
+        <ComposerItem pagey="179.652" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="17.6417" y="179.652" visibility="1" zValue="2" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="97.2906" outlineWidth="0.3" excludeFromExports="0" uuid="{186f4df1-563f-4ad7-8efc-543b1508f5f8}" height="20.2646" itemRotation="0" frame="false" pagex="17.6417">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerScaleBar>
+      <ComposerMap followPreset="false" mapRotation="0" keepLayerSet="false" followPresetName="" id="0" previewMode="Cache" drawCanvasItems="true">
+        <Extent ymin="4693030.45813247561454773" xmin="322944.51225525629706681" ymax="4698420.45813797321170568" xmax="330782.01226325053721666"/>
+        <LayerSet/>
+        <Grid/>
+        <ComposerMapGrid rightAnnotationDirection="0" gridFramePenColor="0,0,0,255" show="0" bottomAnnotationPosition="1" annotationPrecision="3" showAnnotation="0" topFrameDivisions="0" uuid="{85c24951-a440-4f12-9053-6a75f22aca8c}" leftAnnotationDirection="0" topAnnotationPosition="1" rightAnnotationDisplay="0" offsetX="0" offsetY="0" rightFrameDivisions="0" gridStyle="0" annotationFontColor="0,0,0,255" intervalX="0" gridFrameSideFlags="15" intervalY="0" bottomAnnotationDirection="0" leftAnnotationDisplay="0" leftFrameDivisions="0" frameFillColor1="255,255,255,255" annotationExpression="" frameFillColor2="0,0,0,255" crossLength="3" gridFramePenThickness="0.5" bottomAnnotationDisplay="0" unit="0" topAnnotationDisplay="0" leftAnnotationPosition="1" blendMode="0" gridFrameStyle="0" rightAnnotationPosition="1" gridFrameWidth="2" name="Grid 1" annotationFormat="0" bottomFrameDivisions="0" topAnnotationDirection="0" frameAnnotationDistance="1">
+          <lineStyle>
+            <symbol alpha="1" clip_to_extent="1" type="line" name="">
+              <layer pass="0" class="SimpleLine" locked="0">
+                <prop k="capstyle" v="square"/>
+                <prop k="customdash" v="5;2"/>
+                <prop k="customdash_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="customdash_unit" v="MM"/>
+                <prop k="draw_inside_polygon" v="0"/>
+                <prop k="joinstyle" v="bevel"/>
+                <prop k="line_color" v="0,0,0,255"/>
+                <prop k="line_style" v="solid"/>
+                <prop k="line_width" v="0"/>
+                <prop k="line_width_unit" v="MM"/>
+                <prop k="offset" v="0"/>
+                <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="offset_unit" v="MM"/>
+                <prop k="use_custom_dash" v="0"/>
+                <prop k="width_map_unit_scale" v="0,0,0,0,0,0"/>
+              </layer>
+            </symbol>
+          </lineStyle>
+          <markerStyle>
+            <symbol alpha="1" clip_to_extent="1" type="marker" name="">
+              <layer pass="0" class="SimpleMarker" locked="0">
+                <prop k="angle" v="0"/>
+                <prop k="color" v="0,0,0,255"/>
+                <prop k="horizontal_anchor_point" v="1"/>
+                <prop k="joinstyle" v="bevel"/>
+                <prop k="name" v="circle"/>
+                <prop k="offset" v="0,0"/>
+                <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="offset_unit" v="MM"/>
+                <prop k="outline_color" v="0,0,0,255"/>
+                <prop k="outline_style" v="solid"/>
+                <prop k="outline_width" v="0"/>
+                <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="outline_width_unit" v="MM"/>
+                <prop k="scale_method" v="diameter"/>
+                <prop k="size" v="2"/>
+                <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
+                <prop k="size_unit" v="MM"/>
+                <prop k="vertical_anchor_point" v="1"/>
+              </layer>
+            </symbol>
+          </markerStyle>
+          <annotationFontProperties description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+        </ComposerMapGrid>
+        <AtlasMap scalingMode="2" atlasDriven="0" margin="0.10000000000000001"/>
+        <ComposerItem pagey="3.91667" page="1" id="" lastValidViewScaleFactor="2.31327" positionMode="0" positionLock="false" x="6" y="3.91667" visibility="1" zValue="1" background="true" transparency="0" frameJoinStyle="miter" blendMode="0" width="285" outlineWidth="0.3" excludeFromExports="0" uuid="{27cba637-7154-443c-9848-4c2788562216}" height="196" itemRotation="0" frame="false" pagex="6">
+          <FrameColor alpha="255" red="0" blue="0" green="0"/>
+          <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+          <customproperties/>
+        </ComposerItem>
+      </ComposerMap>
+      <customproperties/>
+    </Composition>
+  </Composer>
   <projectlayers>
     <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
       <extent>
@@ -141,7 +558,7 @@
         <value></value>
       </keywordList>
       <attribution href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</attribution>
-      <layername>OSM Standard</layername>
+      <layername>OpenStreetMap</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs</proj4>
@@ -174,356 +591,19 @@
       </pipe>
       <blendMode>0</blendMode>
     </maplayer>
-    <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
-      <extent>
-        <xmin>324336.03975562518462539</xmin>
-        <ymin>4693245.04415900912135839</ymin>
-        <xmax>329345.1087551984237507</xmax>
-        <ymax>4698392.36405151057988405</ymax>
-      </extent>
-      <id>somerville_boundary20181006190442437</id>
-      <datasource>../data/output/somerville_boundary.shp</datasource>
-      <keywordList>
-        <value></value>
-      </keywordList>
-      <layername>somerville_boundary</layername>
-      <srs>
-        <spatialrefsys>
-          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
-          <srsid>3103</srsid>
-          <srid>32619</srid>
-          <authid>EPSG:32619</authid>
-          <description>WGS 84 / UTM zone 19N</description>
-          <projectionacronym>utm</projectionacronym>
-          <ellipsoidacronym>WGS84</ellipsoidacronym>
-          <geographicflag>false</geographicflag>
-        </spatialrefsys>
-      </srs>
-      <provider encoding="System">ogr</provider>
-      <vectorjoins/>
-      <layerDependencies/>
-      <expressionfields/>
-      <map-layer-style-manager current="">
-        <map-layer-style name=""/>
-      </map-layer-style-manager>
-      <edittypes>
-        <edittype widgetv2type="TextEdit" name="OBJECTID">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="TOWN_ID">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="TOWN">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="FIPS_STCO">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="POP1980">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="POP1990">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="POP2000">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="POP2010">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="POPCH80_90">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="POPCH90_00">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="POPCH00_10">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="FOURCOLOR">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="TYPE">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="ISLAND">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="SHAPE_AREA">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="SHAPE_LEN">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-      </edittypes>
-      <renderer-v2 forceraster="0" symbollevels="0" type="singleSymbol" enableorderby="0">
-        <symbols>
-          <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
-            <layer pass="0" class="SimpleFill" locked="0">
-              <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
-              <prop k="color" v="169,89,95,255"/>
-              <prop k="joinstyle" v="bevel"/>
-              <prop k="offset" v="0,0"/>
-              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
-              <prop k="offset_unit" v="MM"/>
-              <prop k="outline_color" v="0,0,0,255"/>
-              <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.26"/>
-              <prop k="outline_width_unit" v="MM"/>
-              <prop k="style" v="solid"/>
-            </layer>
-          </symbol>
-        </symbols>
-        <rotation/>
-        <sizescale scalemethod="diameter"/>
-      </renderer-v2>
-      <labeling type="simple"/>
-      <customproperties/>
-      <blendMode>0</blendMode>
-      <featureBlendMode>0</featureBlendMode>
-      <layerTransparency>0</layerTransparency>
-      <displayfield>OBJECTID</displayfield>
-      <label>0</label>
-      <labelattributes>
-        <label fieldname="" text="Label"/>
-        <family fieldname="" name="Ubuntu"/>
-        <size fieldname="" units="pt" value="12"/>
-        <bold fieldname="" on="0"/>
-        <italic fieldname="" on="0"/>
-        <underline fieldname="" on="0"/>
-        <strikeout fieldname="" on="0"/>
-        <color fieldname="" red="0" blue="0" green="0"/>
-        <x fieldname=""/>
-        <y fieldname=""/>
-        <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
-        <angle fieldname="" value="0" auto="0"/>
-        <alignment fieldname="" value="center"/>
-        <buffercolor fieldname="" red="255" blue="255" green="255"/>
-        <buffersize fieldname="" units="pt" value="1"/>
-        <bufferenabled fieldname="" on=""/>
-        <multilineenabled fieldname="" on=""/>
-        <selectedonly on=""/>
-      </labelattributes>
-      <annotationform>.</annotationform>
-      <aliases>
-        <alias field="OBJECTID" index="0" name=""/>
-        <alias field="TOWN_ID" index="1" name=""/>
-        <alias field="TOWN" index="2" name=""/>
-        <alias field="FIPS_STCO" index="3" name=""/>
-        <alias field="POP1980" index="4" name=""/>
-        <alias field="POP1990" index="5" name=""/>
-        <alias field="POP2000" index="6" name=""/>
-        <alias field="POP2010" index="7" name=""/>
-        <alias field="POPCH80_90" index="8" name=""/>
-        <alias field="POPCH90_00" index="9" name=""/>
-        <alias field="POPCH00_10" index="10" name=""/>
-        <alias field="FOURCOLOR" index="11" name=""/>
-        <alias field="TYPE" index="12" name=""/>
-        <alias field="ISLAND" index="13" name=""/>
-        <alias field="SHAPE_AREA" index="14" name=""/>
-        <alias field="SHAPE_LEN" index="15" name=""/>
-      </aliases>
-      <excludeAttributesWMS/>
-      <excludeAttributesWFS/>
-      <attributeactions default="-1"/>
-      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
-        <columns/>
-      </attributetableconfig>
-      <editform>.</editform>
-      <editforminit/>
-      <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath>.</editforminitfilepath>
-      <editforminitcode><![CDATA[]]></editforminitcode>
-      <featformsuppress>0</featformsuppress>
-      <editorlayout>generatedlayout</editorlayout>
-      <widgets/>
-      <conditionalstyles>
-        <rowstyles/>
-        <fieldstyles/>
-      </conditionalstyles>
-      <defaults>
-        <default field="OBJECTID" expression=""/>
-        <default field="TOWN_ID" expression=""/>
-        <default field="TOWN" expression=""/>
-        <default field="FIPS_STCO" expression=""/>
-        <default field="POP1980" expression=""/>
-        <default field="POP1990" expression=""/>
-        <default field="POP2000" expression=""/>
-        <default field="POP2010" expression=""/>
-        <default field="POPCH80_90" expression=""/>
-        <default field="POPCH90_00" expression=""/>
-        <default field="POPCH00_10" expression=""/>
-        <default field="FOURCOLOR" expression=""/>
-        <default field="TYPE" expression=""/>
-        <default field="ISLAND" expression=""/>
-        <default field="SHAPE_AREA" expression=""/>
-        <default field="SHAPE_LEN" expression=""/>
-      </defaults>
-      <previewExpression></previewExpression>
-    </maplayer>
-    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+    <maplayer minimumScale="inf" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
       <extent>
         <xmin>324336.03975562518462539</xmin>
         <ymin>4693245.36405151057988405</ymin>
         <xmax>329345.03975562518462539</xmax>
         <ymax>4698392.36405151057988405</ymax>
       </extent>
-      <id>somerville_elev_lstsq_30ft20181007221233003</id>
+      <id>somerville_elev_lstsq_30ft20181008014301644</id>
       <datasource>../data/output/somerville_elev_lstsq_30ft.gtif</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>somerville_elev_lstsq_30ft</layername>
-      <srs>
-        <spatialrefsys>
-          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
-          <srsid>3103</srsid>
-          <srid>32619</srid>
-          <authid>EPSG:32619</authid>
-          <description>WGS 84 / UTM zone 19N</description>
-          <projectionacronym>utm</projectionacronym>
-          <ellipsoidacronym>WGS84</ellipsoidacronym>
-          <geographicflag>false</geographicflag>
-        </spatialrefsys>
-      </srs>
-      <customproperties>
-        <property key="identify/format" value="Value"/>
-      </customproperties>
-      <provider>gdal</provider>
-      <noData>
-        <noDataList bandNo="1" useSrcNoData="1"/>
-      </noData>
-      <map-layer-style-manager current="">
-        <map-layer-style name=""/>
-      </map-layer-style-manager>
-      <pipe>
-        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
-          <rasterTransparency/>
-          <contrastEnhancement>
-            <minValue>2.335109686851502</minValue>
-            <maxValue>33.168962324857716</maxValue>
-            <algorithm>StretchToMinimumMaximum</algorithm>
-          </contrastEnhancement>
-        </rasterrenderer>
-        <brightnesscontrast brightness="0" contrast="0"/>
-        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
-        <rasterresampler maxOversampling="2"/>
-      </pipe>
-      <blendMode>0</blendMode>
-    </maplayer>
-    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
-      <extent>
-        <xmin>324336.03975562518462539</xmin>
-        <ymin>4693245.36405151057988405</ymin>
-        <xmax>329345.03975562518462539</xmax>
-        <ymax>4698392.36405151057988405</ymax>
-      </extent>
-      <id>somerville_elev_mean_1620181007203950736</id>
-      <datasource>../data/output/somerville_elev_mean_16.gtif</datasource>
-      <keywordList>
-        <value></value>
-      </keywordList>
-      <layername>somerville_elev_mean_16</layername>
-      <srs>
-        <spatialrefsys>
-          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
-          <srsid>3103</srsid>
-          <srid>32619</srid>
-          <authid>EPSG:32619</authid>
-          <description>WGS 84 / UTM zone 19N</description>
-          <projectionacronym>utm</projectionacronym>
-          <ellipsoidacronym>WGS84</ellipsoidacronym>
-          <geographicflag>false</geographicflag>
-        </spatialrefsys>
-      </srs>
-      <customproperties>
-        <property key="identify/format" value="Value"/>
-      </customproperties>
-      <provider>gdal</provider>
-      <noData>
-        <noDataList bandNo="1" useSrcNoData="1"/>
-      </noData>
-      <map-layer-style-manager current="">
-        <map-layer-style name=""/>
-      </map-layer-style-manager>
-      <pipe>
-        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
-          <rasterTransparency/>
-          <contrastEnhancement>
-            <minValue>2.248749826908112</minValue>
-            <maxValue>33.08312367534638</maxValue>
-            <algorithm>StretchToMinimumMaximum</algorithm>
-          </contrastEnhancement>
-        </rasterrenderer>
-        <brightnesscontrast brightness="0" contrast="0"/>
-        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
-        <rasterresampler maxOversampling="2"/>
-      </pipe>
-      <blendMode>0</blendMode>
-    </maplayer>
-    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
-      <extent>
-        <xmin>324336.03975562518462539</xmin>
-        <ymin>4693245.36405151057988405</ymin>
-        <xmax>329345.03975562518462539</xmax>
-        <ymax>4698392.36405151057988405</ymax>
-      </extent>
-      <id>somerville_elev_median_1620181007203951965</id>
-      <datasource>../data/output/somerville_elev_median_16.gtif</datasource>
-      <keywordList>
-        <value></value>
-      </keywordList>
-      <layername>somerville_elev_median_16</layername>
-      <srs>
-        <spatialrefsys>
-          <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
-          <srsid>3103</srsid>
-          <srid>32619</srid>
-          <authid>EPSG:32619</authid>
-          <description>WGS 84 / UTM zone 19N</description>
-          <projectionacronym>utm</projectionacronym>
-          <ellipsoidacronym>WGS84</ellipsoidacronym>
-          <geographicflag>false</geographicflag>
-        </spatialrefsys>
-      </srs>
-      <customproperties>
-        <property key="identify/format" value="Value"/>
-      </customproperties>
-      <provider>gdal</provider>
-      <noData>
-        <noDataList bandNo="1" useSrcNoData="1"/>
-      </noData>
-      <map-layer-style-manager current="">
-        <map-layer-style name=""/>
-      </map-layer-style-manager>
-      <pipe>
-        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
-          <rasterTransparency/>
-          <contrastEnhancement>
-            <minValue>2.255600074768067</minValue>
-            <maxValue>33.09860060119629</maxValue>
-            <algorithm>StretchToMinimumMaximum</algorithm>
-          </contrastEnhancement>
-        </rasterrenderer>
-        <brightnesscontrast brightness="0" contrast="0"/>
-        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
-        <rasterresampler maxOversampling="2"/>
-      </pipe>
-      <blendMode>0</blendMode>
-    </maplayer>
-    <maplayer minimumScale="inf" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
-      <extent>
-        <xmin>324336.03975562518462539</xmin>
-        <ymin>4693244.86405151057988405</ymin>
-        <xmax>329345.03975562518462539</xmax>
-        <ymax>4698392.36405151057988405</ymax>
-      </extent>
-      <id>somerville_mask20181007171622248</id>
-      <datasource>../data/output/somerville_mask.gtif</datasource>
-      <keywordList>
-        <value></value>
-      </keywordList>
-      <layername>somerville_mask</layername>
+      <layername>Elevation [meters]</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
@@ -548,13 +628,17 @@
         <map-layer-style name=""/>
       </map-layer-style-manager>
       <pipe>
-        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="0" type="singlebandgray" grayBand="1">
+        <rasterrenderer opacity="1" alphaBand="-1" classificationMax="32.7659" classificationMinMaxOrigin="CumulativeCutFullExtentExact" band="1" classificationMin="2.22601" type="singlebandpseudocolor">
           <rasterTransparency/>
-          <contrastEnhancement>
-            <minValue>nan</minValue>
-            <maxValue>1</maxValue>
-            <algorithm>StretchToMinimumMaximum</algorithm>
-          </contrastEnhancement>
+          <rastershader>
+            <colorrampshader colorRampType="INTERPOLATED" clip="0">
+              <item alpha="255" value="2.23" label="2.23" color="#2b83ba"/>
+              <item alpha="255" value="9.86" label="9.86" color="#abdda4"/>
+              <item alpha="255" value="17.5" label="17.5" color="#ffffbf"/>
+              <item alpha="255" value="25.1" label="25.1" color="#fdae61"/>
+              <item alpha="255" value="32.8" label="32.8" color="#d7191c"/>
+            </colorrampshader>
+          </rastershader>
         </rasterrenderer>
         <brightnesscontrast brightness="0" contrast="0"/>
         <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
@@ -562,19 +646,19 @@
       </pipe>
       <blendMode>0</blendMode>
     </maplayer>
-    <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+    <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <extent>
-        <xmin>324336.03975562518462539</xmin>
-        <ymin>4693245.36405151057988405</ymin>
-        <xmax>329345.03975562518462539</xmax>
-        <ymax>4698392.36405151057988405</ymax>
+        <xmin>324370.61170048580970615</xmin>
+        <ymin>4693224.45362604130059481</ymin>
+        <xmax>329354.57563730876427144</xmax>
+        <ymax>4698392.19481644500046968</ymax>
       </extent>
-      <id>somerville_slope_dir_lstsq_30ft20181007222126951</id>
-      <datasource>../data/output/somerville_slope_dir_lstsq_30ft.gtif</datasource>
+      <id>somerville_parcels_labeled20181008014756159</id>
+      <datasource>../data/output/somerville_parcels_labeled.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>somerville_slope_dir_lstsq_30ft</layername>
+      <layername>Parcels</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
@@ -587,30 +671,401 @@
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
-      <customproperties>
-        <property key="identify/format" value="Value"/>
-      </customproperties>
-      <provider>gdal</provider>
-      <noData>
-        <noDataList bandNo="1" useSrcNoData="1"/>
-      </noData>
+      <provider encoding="System">ogr</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <expressionfields/>
       <map-layer-style-manager current="">
         <map-layer-style name=""/>
       </map-layer-style-manager>
-      <pipe>
-        <rasterrenderer gradient="BlackToWhite" opacity="1" alphaBand="-1" type="singlebandgray" grayBand="1">
-          <rasterTransparency/>
-          <contrastEnhancement>
-            <minValue>-172.07756268310547</minValue>
-            <maxValue>170.9996162414551</maxValue>
-            <algorithm>StretchToMinimumMaximum</algorithm>
-          </contrastEnhancement>
-        </rasterrenderer>
-        <brightnesscontrast brightness="0" contrast="0"/>
-        <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
-        <rasterresampler maxOversampling="2"/>
-      </pipe>
+      <edittypes>
+        <edittype widgetv2type="TextEdit" name="SHAPE_Leng">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SHAPE_Area">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="MAP_PAR_ID">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="LOC_ID">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="POLY_TYPE">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="MAP_NO">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SOURCE">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="PLAN_ID">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="LAST_EDIT">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="BND_CHK">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="NO_MATCH">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="TOWN_ID">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="M2_ABOVE_2">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="IMPACTED">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+      </edittypes>
+      <renderer-v2 attr="IMPACTED" forceraster="0" symbollevels="0" type="categorizedSymbol" enableorderby="0">
+        <categories>
+          <category render="true" symbol="0" value="0" label="Not Impacted"/>
+          <category render="true" symbol="1" value="1" label="Impacted"/>
+        </categories>
+        <symbols>
+          <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
+            <layer pass="0" class="SimpleLine" locked="0">
+              <prop k="capstyle" v="square"/>
+              <prop k="customdash" v="5;2"/>
+              <prop k="customdash_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="customdash_unit" v="MM"/>
+              <prop k="draw_inside_polygon" v="0"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="line_color" v="0,0,0,255"/>
+              <prop k="line_style" v="solid"/>
+              <prop k="line_width" v="0.26"/>
+              <prop k="line_width_unit" v="MM"/>
+              <prop k="offset" v="0"/>
+              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="use_custom_dash" v="0"/>
+              <prop k="width_map_unit_scale" v="0,0,0,0,0,0"/>
+            </layer>
+          </symbol>
+          <symbol alpha="1" clip_to_extent="1" type="fill" name="1">
+            <layer pass="0" class="SimpleFill" locked="0">
+              <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="color" v="255,43,1,255"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="0,0,0,255"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="style" v="solid"/>
+            </layer>
+          </symbol>
+        </symbols>
+        <source-symbol>
+          <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
+            <layer pass="0" class="SimpleFill" locked="0">
+              <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="color" v="159,242,64,255"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="0,0,0,255"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="style" v="solid"/>
+            </layer>
+          </symbol>
+        </source-symbol>
+        <colorramp type="randomcolors" name="[source]"/>
+        <invertedcolorramp value="0"/>
+        <rotation/>
+        <sizescale scalemethod="diameter"/>
+      </renderer-v2>
+      <labeling type="simple"/>
+      <customproperties>
+        <property key="embeddedWidgets/count" value="0"/>
+        <property key="labeling" value="pal"/>
+        <property key="labeling/addDirectionSymbol" value="false"/>
+        <property key="labeling/angleOffset" value="0"/>
+        <property key="labeling/blendMode" value="0"/>
+        <property key="labeling/bufferBlendMode" value="0"/>
+        <property key="labeling/bufferColorA" value="255"/>
+        <property key="labeling/bufferColorB" value="255"/>
+        <property key="labeling/bufferColorG" value="255"/>
+        <property key="labeling/bufferColorR" value="255"/>
+        <property key="labeling/bufferDraw" value="false"/>
+        <property key="labeling/bufferJoinStyle" value="128"/>
+        <property key="labeling/bufferNoFill" value="false"/>
+        <property key="labeling/bufferSize" value="1"/>
+        <property key="labeling/bufferSizeInMapUnits" value="false"/>
+        <property key="labeling/bufferSizeMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/bufferTransp" value="0"/>
+        <property key="labeling/centroidInside" value="false"/>
+        <property key="labeling/centroidWhole" value="false"/>
+        <property key="labeling/decimals" value="3"/>
+        <property key="labeling/displayAll" value="false"/>
+        <property key="labeling/dist" value="0"/>
+        <property key="labeling/distInMapUnits" value="false"/>
+        <property key="labeling/distMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/drawLabels" value="false"/>
+        <property key="labeling/enabled" value="false"/>
+        <property key="labeling/fieldName" value=""/>
+        <property key="labeling/fitInPolygonOnly" value="false"/>
+        <property key="labeling/fontCapitals" value="0"/>
+        <property key="labeling/fontFamily" value="Ubuntu"/>
+        <property key="labeling/fontItalic" value="true"/>
+        <property key="labeling/fontLetterSpacing" value="0"/>
+        <property key="labeling/fontLimitPixelSize" value="false"/>
+        <property key="labeling/fontMaxPixelSize" value="10000"/>
+        <property key="labeling/fontMinPixelSize" value="3"/>
+        <property key="labeling/fontSize" value="11"/>
+        <property key="labeling/fontSizeInMapUnits" value="false"/>
+        <property key="labeling/fontSizeMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/fontStrikeout" value="false"/>
+        <property key="labeling/fontUnderline" value="false"/>
+        <property key="labeling/fontWeight" value="50"/>
+        <property key="labeling/fontWordSpacing" value="0"/>
+        <property key="labeling/formatNumbers" value="false"/>
+        <property key="labeling/isExpression" value="true"/>
+        <property key="labeling/labelOffsetInMapUnits" value="true"/>
+        <property key="labeling/labelOffsetMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/labelPerPart" value="false"/>
+        <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+        <property key="labeling/limitNumLabels" value="false"/>
+        <property key="labeling/maxCurvedCharAngleIn" value="25"/>
+        <property key="labeling/maxCurvedCharAngleOut" value="-25"/>
+        <property key="labeling/maxNumLabels" value="2000"/>
+        <property key="labeling/mergeLines" value="false"/>
+        <property key="labeling/minFeatureSize" value="0"/>
+        <property key="labeling/multilineAlign" value="4294967295"/>
+        <property key="labeling/multilineHeight" value="1"/>
+        <property key="labeling/namedStyle" value="Italic"/>
+        <property key="labeling/obstacle" value="true"/>
+        <property key="labeling/obstacleFactor" value="1"/>
+        <property key="labeling/obstacleType" value="0"/>
+        <property key="labeling/offsetType" value="0"/>
+        <property key="labeling/placeDirectionSymbol" value="0"/>
+        <property key="labeling/placement" value="1"/>
+        <property key="labeling/placementFlags" value="10"/>
+        <property key="labeling/plussign" value="false"/>
+        <property key="labeling/predefinedPositionOrder" value="TR,TL,BR,BL,R,L,TSR,BSR"/>
+        <property key="labeling/preserveRotation" value="true"/>
+        <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+        <property key="labeling/priority" value="5"/>
+        <property key="labeling/quadOffset" value="4"/>
+        <property key="labeling/repeatDistance" value="0"/>
+        <property key="labeling/repeatDistanceMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/repeatDistanceUnit" value="1"/>
+        <property key="labeling/reverseDirectionSymbol" value="false"/>
+        <property key="labeling/rightDirectionSymbol" value=">"/>
+        <property key="labeling/scaleMax" value="10000000"/>
+        <property key="labeling/scaleMin" value="1"/>
+        <property key="labeling/scaleVisibility" value="false"/>
+        <property key="labeling/shadowBlendMode" value="6"/>
+        <property key="labeling/shadowColorB" value="0"/>
+        <property key="labeling/shadowColorG" value="0"/>
+        <property key="labeling/shadowColorR" value="0"/>
+        <property key="labeling/shadowDraw" value="false"/>
+        <property key="labeling/shadowOffsetAngle" value="135"/>
+        <property key="labeling/shadowOffsetDist" value="1"/>
+        <property key="labeling/shadowOffsetGlobal" value="true"/>
+        <property key="labeling/shadowOffsetMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shadowOffsetUnits" value="1"/>
+        <property key="labeling/shadowRadius" value="1.5"/>
+        <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
+        <property key="labeling/shadowRadiusMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shadowRadiusUnits" value="1"/>
+        <property key="labeling/shadowScale" value="100"/>
+        <property key="labeling/shadowTransparency" value="30"/>
+        <property key="labeling/shadowUnder" value="0"/>
+        <property key="labeling/shapeBlendMode" value="0"/>
+        <property key="labeling/shapeBorderColorA" value="255"/>
+        <property key="labeling/shapeBorderColorB" value="128"/>
+        <property key="labeling/shapeBorderColorG" value="128"/>
+        <property key="labeling/shapeBorderColorR" value="128"/>
+        <property key="labeling/shapeBorderWidth" value="0"/>
+        <property key="labeling/shapeBorderWidthMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeBorderWidthUnits" value="1"/>
+        <property key="labeling/shapeDraw" value="false"/>
+        <property key="labeling/shapeFillColorA" value="255"/>
+        <property key="labeling/shapeFillColorB" value="255"/>
+        <property key="labeling/shapeFillColorG" value="255"/>
+        <property key="labeling/shapeFillColorR" value="255"/>
+        <property key="labeling/shapeJoinStyle" value="64"/>
+        <property key="labeling/shapeOffsetMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeOffsetUnits" value="1"/>
+        <property key="labeling/shapeOffsetX" value="0"/>
+        <property key="labeling/shapeOffsetY" value="0"/>
+        <property key="labeling/shapeRadiiMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeRadiiUnits" value="1"/>
+        <property key="labeling/shapeRadiiX" value="0"/>
+        <property key="labeling/shapeRadiiY" value="0"/>
+        <property key="labeling/shapeRotation" value="0"/>
+        <property key="labeling/shapeRotationType" value="0"/>
+        <property key="labeling/shapeSVGFile" value=""/>
+        <property key="labeling/shapeSizeMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeSizeType" value="0"/>
+        <property key="labeling/shapeSizeUnits" value="1"/>
+        <property key="labeling/shapeSizeX" value="0"/>
+        <property key="labeling/shapeSizeY" value="0"/>
+        <property key="labeling/shapeTransparency" value="0"/>
+        <property key="labeling/shapeType" value="0"/>
+        <property key="labeling/substitutions" value="&lt;substitutions/>"/>
+        <property key="labeling/textColorA" value="255"/>
+        <property key="labeling/textColorB" value="0"/>
+        <property key="labeling/textColorG" value="0"/>
+        <property key="labeling/textColorR" value="0"/>
+        <property key="labeling/textTransp" value="0"/>
+        <property key="labeling/upsidedownLabels" value="0"/>
+        <property key="labeling/useSubstitutions" value="false"/>
+        <property key="labeling/wrapChar" value=""/>
+        <property key="labeling/xOffset" value="0"/>
+        <property key="labeling/yOffset" value="0"/>
+        <property key="labeling/zIndex" value="0"/>
+        <property key="variableNames"/>
+        <property key="variableValues"/>
+      </customproperties>
       <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerTransparency>0</layerTransparency>
+      <displayfield>MAP_PAR_ID</displayfield>
+      <label>0</label>
+      <labelattributes>
+        <label fieldname="" text="Label"/>
+        <family fieldname="" name="Ubuntu"/>
+        <size fieldname="" units="pt" value="12"/>
+        <bold fieldname="" on="0"/>
+        <italic fieldname="" on="0"/>
+        <underline fieldname="" on="0"/>
+        <strikeout fieldname="" on="0"/>
+        <color fieldname="" red="0" blue="0" green="0"/>
+        <x fieldname=""/>
+        <y fieldname=""/>
+        <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+        <angle fieldname="" value="0" auto="0"/>
+        <alignment fieldname="" value="center"/>
+        <buffercolor fieldname="" red="255" blue="255" green="255"/>
+        <buffersize fieldname="" units="pt" value="1"/>
+        <bufferenabled fieldname="" on=""/>
+        <multilineenabled fieldname="" on=""/>
+        <selectedonly on=""/>
+      </labelattributes>
+      <SingleCategoryDiagramRenderer diagramType="Histogram" sizeLegend="0" attributeLegend="1">
+        <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" sizeScale="0,0,0,0,0,0" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" lineSizeScale="0,0,0,0,0,0" sizeType="MM" lineSizeType="MM" minScaleDenominator="inf">
+          <fontProperties description="Ubuntu,11,-1,5,50,0,0,0,0,0" style=""/>
+        </DiagramCategory>
+        <symbol alpha="1" clip_to_extent="1" type="marker" name="sizeSymbol">
+          <layer pass="0" class="SimpleMarker" locked="0">
+            <prop k="angle" v="0"/>
+            <prop k="color" v="255,0,0,255"/>
+            <prop k="horizontal_anchor_point" v="1"/>
+            <prop k="joinstyle" v="bevel"/>
+            <prop k="name" v="circle"/>
+            <prop k="offset" v="0,0"/>
+            <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+            <prop k="offset_unit" v="MM"/>
+            <prop k="outline_color" v="0,0,0,255"/>
+            <prop k="outline_style" v="solid"/>
+            <prop k="outline_width" v="0"/>
+            <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
+            <prop k="outline_width_unit" v="MM"/>
+            <prop k="scale_method" v="diameter"/>
+            <prop k="size" v="2"/>
+            <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
+            <prop k="size_unit" v="MM"/>
+            <prop k="vertical_anchor_point" v="1"/>
+          </layer>
+        </symbol>
+      </SingleCategoryDiagramRenderer>
+      <DiagramLayerSettings yPosColumn="-1" showColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" zIndex="0" showAll="1"/>
+      <annotationform></annotationform>
+      <aliases>
+        <alias field="SHAPE_Leng" index="0" name=""/>
+        <alias field="SHAPE_Area" index="1" name=""/>
+        <alias field="MAP_PAR_ID" index="2" name=""/>
+        <alias field="LOC_ID" index="3" name=""/>
+        <alias field="POLY_TYPE" index="4" name=""/>
+        <alias field="MAP_NO" index="5" name=""/>
+        <alias field="SOURCE" index="6" name=""/>
+        <alias field="PLAN_ID" index="7" name=""/>
+        <alias field="LAST_EDIT" index="8" name=""/>
+        <alias field="BND_CHK" index="9" name=""/>
+        <alias field="NO_MATCH" index="10" name=""/>
+        <alias field="TOWN_ID" index="11" name=""/>
+        <alias field="M2_ABOVE_2" index="12" name=""/>
+        <alias field="IMPACTED" index="13" name=""/>
+      </aliases>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <attributeactions default="-1"/>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="905972234">
+        <columns>
+          <column width="-1" hidden="0" type="field" name="SHAPE_Leng"/>
+          <column width="-1" hidden="0" type="field" name="SHAPE_Area"/>
+          <column width="-1" hidden="0" type="field" name="MAP_PAR_ID"/>
+          <column width="-1" hidden="0" type="field" name="LOC_ID"/>
+          <column width="-1" hidden="0" type="field" name="POLY_TYPE"/>
+          <column width="-1" hidden="0" type="field" name="MAP_NO"/>
+          <column width="-1" hidden="0" type="field" name="SOURCE"/>
+          <column width="-1" hidden="0" type="field" name="PLAN_ID"/>
+          <column width="-1" hidden="0" type="field" name="LAST_EDIT"/>
+          <column width="-1" hidden="0" type="field" name="BND_CHK"/>
+          <column width="-1" hidden="0" type="field" name="NO_MATCH"/>
+          <column width="-1" hidden="0" type="field" name="TOWN_ID"/>
+          <column width="-1" hidden="0" type="field" name="M2_ABOVE_2"/>
+          <column width="-1" hidden="0" type="field" name="IMPACTED"/>
+          <column width="-1" hidden="1" type="actions"/>
+        </columns>
+      </attributetableconfig>
+      <editform></editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath></editforminitfilepath>
+      <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+"""
+QGIS forms can have a Python function that is called when the form is
+opened.
+
+Use this function to add extra logic to your forms.
+
+Enter the name of the function in the "Python Init function"
+field.
+An example follows:
+"""
+from qgis.PyQt.QtWidgets import QWidget
+
+def my_form_open(dialog, layer, feature):
+	geom = feature.geometry()
+	control = dialog.findChild(QWidget, "MyLineEdit")
+]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <widgets/>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <defaults>
+        <default field="SHAPE_Leng" expression=""/>
+        <default field="SHAPE_Area" expression=""/>
+        <default field="MAP_PAR_ID" expression=""/>
+        <default field="LOC_ID" expression=""/>
+        <default field="POLY_TYPE" expression=""/>
+        <default field="MAP_NO" expression=""/>
+        <default field="SOURCE" expression=""/>
+        <default field="PLAN_ID" expression=""/>
+        <default field="LAST_EDIT" expression=""/>
+        <default field="BND_CHK" expression=""/>
+        <default field="NO_MATCH" expression=""/>
+        <default field="TOWN_ID" expression=""/>
+        <default field="M2_ABOVE_2" expression=""/>
+        <default field="IMPACTED" expression=""/>
+      </defaults>
+      <previewExpression></previewExpression>
     </maplayer>
     <maplayer minimumScale="inf" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
       <extent>
@@ -619,12 +1074,12 @@
         <xmax>329345.03975562518462539</xmax>
         <ymax>4698392.36405151057988405</ymax>
       </extent>
-      <id>somerville_slope_pct_lstsq_30ft20181007221523287</id>
+      <id>somerville_slope_pct_lstsq_30ft20181008014333162</id>
       <datasource>../data/output/somerville_slope_pct_lstsq_30ft.gtif</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>somerville_slope_pct_lstsq_30ft</layername>
+      <layername>Slope [% grade]</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=utm +zone=19 +datum=WGS84 +units=m +no_defs</proj4>
@@ -693,25 +1148,15 @@
     </Gui>
     <Digitizing>
       <DefaultSnapToleranceUnit type="int">2</DefaultSnapToleranceUnit>
-      <LayerSnappingList type="QStringList">
-        <value>somerville_boundary20181006190442437</value>
-      </LayerSnappingList>
-      <LayerSnappingEnabledList type="QStringList">
-        <value>disabled</value>
-      </LayerSnappingEnabledList>
+      <LayerSnappingList type="QStringList"/>
+      <LayerSnappingEnabledList type="QStringList"/>
       <SnappingMode type="QString">current_layer</SnappingMode>
       <AvoidIntersectionsList type="QStringList"/>
-      <LayerSnappingToleranceUnitList type="QStringList">
-        <value>2</value>
-      </LayerSnappingToleranceUnitList>
-      <LayerSnapToList type="QStringList">
-        <value>to_vertex_and_segment</value>
-      </LayerSnapToList>
+      <LayerSnappingToleranceUnitList type="QStringList"/>
+      <LayerSnapToList type="QStringList"/>
       <DefaultSnapType type="QString">off</DefaultSnapType>
       <DefaultSnapTolerance type="double">0</DefaultSnapTolerance>
-      <LayerSnappingToleranceList type="QStringList">
-        <value>0.000000</value>
-      </LayerSnappingToleranceList>
+      <LayerSnappingToleranceList type="QStringList"/>
     </Digitizing>
     <PositionPrecision>
       <DecimalPlaces type="int">2</DecimalPlaces>

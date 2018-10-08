@@ -234,7 +234,8 @@ def read_geotiff(gtif):
     return mask, x_vec, y_vec, meta
 
 
-def create_somerville_elevation_geotiff(knn=16, agg='median'):
+# DEPRECATED
+def _create_somerville_elevation_geotiff(knn=16, agg='median'):
     """Compute gridded elev using NN-median filter as save geotiff"""
     # get points and KDTree
     tree, zpts = lidar_kdtree(load=True)
@@ -273,7 +274,7 @@ def create_somerville_elevation_geotiff(knn=16, agg='median'):
         elev_raster.write(elev, 1)
 
 
-def create_somerville_30ft_geotiffs(knn=16, agg='median'):
+def create_somerville_elev_slope_geotiffs():
     """Compute gridded elev and gradient grids using least-squares, save geotiffs"""
 
     # get points and KDTree
