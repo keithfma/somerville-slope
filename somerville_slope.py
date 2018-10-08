@@ -31,7 +31,7 @@ OUTPUT_SOMERVILLE_SHP = 'data/output/somerville_boundary.shp'
 OUTPUT_INDEX_SOMERVILLE_SHP = 'data/output/somerville_lidar_index.shp'
 OUTPUT_SOMERVILLE_MASK_GTIF = 'data/output/somerville_mask.gtif'
 OUTPUT_SOMERVILLE_KDTREE = 'data/output/somerville_kdtree.pkl'
-OUTPUT_SOMERVILLE_ELEV_PREFIX = 'data/output/somerville_elev_'
+OUTPUT_SOMERVILLE_ELEV_PREFIX = 'data/output/somerville_elev'
 
 
 def lidar_download():
@@ -224,15 +224,19 @@ def create_somerville_elevation_geotiff(knn=16, agg='median'):
     elev[:] = np.nan
 
     # find kNN for all grid points
+    print('Finding nearest neighbors for all grid points')
     x_grd, y_grd = np.meshgrid(x_vec, y_vec, indexing='xy')
     xy_mask = np.column_stack((x_grd[mask], y_grd[mask]))
     nn_dist, nn_idx = tree.query(xy_mask, k=knn) # returns indexes into original data
 
+    # populate elevation grid
+    print(f'Computing elevation using {agg} aggregation')
     if agg == 'median':
-        # compute elevation as local medians
+        # use local median
         elev[mask] = np.median(zpts[nn_idx], axis=1)
         output_file = f'{OUTPUT_SOMERVILLE_ELEV_PREFIX}_median_{knn}.gtif'
     elif agg == 'mean':
+        # use local mean
         elev[mask] = np.mean(zpts[nn_idx], axis=1)
         output_file = f'{OUTPUT_SOMERVILLE_ELEV_PREFIX}_mean_{knn}.gtif'
     else:
