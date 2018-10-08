@@ -15,6 +15,7 @@ import subprocess
 import rasterio
 import pickle
 from scipy.spatial import cKDTree
+from warnings import warn
 
 
 # constants
@@ -22,6 +23,9 @@ MA_TOWNS_SHP = 'data/massgis_towns/data/TOWNS_POLY.shp'
 INDEX_SHP = 'data/noaa_lidar_index/data/2013_2014_usgs_post_sandy_ma_nh_ri_index.shp'
 LIDAR_DIR = 'data/noaa_lidar/dist'
 LIDAR_CRS = 'EPSG:4152' # NAD83(HARN), see: https://coast.noaa.gov/htdata/lidar1_z/geoid12b/data/4800/
+FT_TO_M = 0.3048
+NBR_RADIUS = 15*FT_TO_M 
+FIT_MIN_PTS = 10 
 
 OUTPUT_CRS = 'EPSG:32619' # UTM 19N coord ref sys, good for eastern MA
 OUTPUT_RES_X = 1 # meters
@@ -251,3 +255,64 @@ def create_somerville_elevation_geotiff(knn=16, agg='median'):
         elev_raster.write(elev, 1)
 
 
+def create_somerville_30ft_geotiffs(knn=16, agg='median'):
+    """Compute gridded elev and gradient grids using least-squares, save geotiffs"""
+    pass
+
+# # get points and KDTree
+# tree, zpts = lidar_kdtree(load=True)
+ 
+# prepare output grids from somerville mask raster
+mask, x_vec, y_vec, meta = read_somerville_mask_geotiff()
+mask = mask.astype(np.bool)
+elev = np.zeros(mask.shape, dtype=np.float32)
+elev[:] = np.nan
+slope_dir = elev.copy()
+slope_pct = elev.copy()
+
+# populate all grid points
+nrows, ncols = elev.shape
+for ii in range(nrows):
+
+    # progress monitor
+    if ii % 100 == 0 or ii == nrows-1:
+        print(f'Row {ii} / {nrows}')
+
+    for jj in range(ncols):
+        if mask[ii, jj]:
+
+            # get point coords
+            this_x = x_vec[jj]
+            this_y = y_vec[ii]
+
+            # get all pts within 15 ft (yields 30-foot diameter circle ROI)
+            nbr_idx = tree.query_ball_point((this_x, this_y), NBR_RADIUS)
+            nbr_num = len(nbr_idx)
+            if nbr_num < FIT_MIN_PTS:
+                continue
+
+            # find best-fit plane to points
+            fit = np.linalg.lstsq(
+                a=np.column_stack(( np.ones((nbr_num, 1)), tree.data[nbr_idx] )),
+                b=zpts[nbr_idx],
+                rcond=None
+                )[0]
+
+            # extract elevation (evaluate best fit plane at this point)
+            elev[ii,jj] = fit[0] + fit[1]*this_x + fit[2]*this_y
+
+            # extract slope magnitude (vector magnitude is m/m, times 100 to percent grade)
+            # NOTE: confusingly, percent grade can be > 100, see: https://en.wikipedia.org/wiki/Grade_(slope)
+            slope_pct[ii,jj] = np.sqrt(fit[1]*fit[1] + fit[2]*fit[2])*100
+            
+            # extract slope direction
+            slope_dir[ii,jj] = np.degrees(np.arctan2(fit[2], fit[1]))
+
+# write results to geotiff
+output_file = 'delete_me.gtif'
+meta.update({
+    'driver': 'GTiff',
+    'dtype': 'float32',
+    })
+with rasterio.open(output_file, 'w', **meta) as elev_raster:
+    elev_raster.write(elev, 1)
