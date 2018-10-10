@@ -143,7 +143,7 @@ def lidar_kdtree(load=True):
     Arguments:
         load: bool, set True to attempt to load previous results from pickle files
 
-    Return: tree, tree
+    Return: tree, zpts
         tree: scipy.spatial.cKDTree object for x,y in pts
         zpts: Nx1 numpy array, z coordinates for all points in study area, note that x,y are stored in tree.data
     """
