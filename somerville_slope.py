@@ -234,46 +234,6 @@ def read_geotiff(gtif):
     return mask, x_vec, y_vec, meta
 
 
-# DEPRECATED
-def _create_somerville_elevation_geotiff(knn=16, agg='median'):
-    """Compute gridded elev using NN-median filter as save geotiff"""
-    # get points and KDTree
-    tree, zpts = lidar_kdtree(load=True)
-
-    # prepare output grid from somerville mask raster
-    mask, x_vec, y_vec, meta = read_geotiff(OUTPUT_SOMERVILLE_MASK_GTIF)
-    mask = mask.astype(np.bool)
-    elev = np.zeros(mask.shape, dtype=np.float32)
-    elev[:] = np.nan
-
-    # find kNN for all grid points
-    print('Finding nearest neighbors for all grid points')
-    x_grd, y_grd = np.meshgrid(x_vec, y_vec, indexing='xy')
-    xy_mask = np.column_stack((x_grd[mask], y_grd[mask]))
-    nn_dist, nn_idx = tree.query(xy_mask, k=knn) # returns indexes into original data
-
-    # populate elevation grid
-    print(f'Computing elevation using {agg} aggregation')
-    if agg == 'median':
-        # use local median
-        elev[mask] = np.median(zpts[nn_idx], axis=1)
-        output_file = f'{OUTPUT_SOMERVILLE_ELEV_PREFIX}_median_{knn}.gtif'
-    elif agg == 'mean':
-        # use local mean
-        elev[mask] = np.mean(zpts[nn_idx], axis=1)
-        output_file = f'{OUTPUT_SOMERVILLE_ELEV_PREFIX}_mean_{knn}.gtif'
-    else:
-        raise ValueError(f'Invalid choice for input arg "agg" = {agg}')
-
-    # write results to geotiff
-    meta.update({
-        'driver': 'GTiff',
-        'dtype': 'float32',
-        })
-    with rasterio.open(output_file, 'w', **meta) as elev_raster:
-        elev_raster.write(elev, 1)
-
-
 def create_somerville_elev_slope_geotiffs():
     """Compute gridded elev and gradient grids using least-squares, save geotiffs"""
 
